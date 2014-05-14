@@ -10,7 +10,7 @@ using SomeTechie.RoundRobinScheduleGenerator;
 
 namespace SomeTechie.RoundRobinScheduler
 {
-    public partial class SeatingDisplay : UserControl
+    public partial class SeedingDisplay : UserControl
     {
         protected int divisionWidth;
         protected int headerHeight = 0;
@@ -21,8 +21,8 @@ namespace SomeTechie.RoundRobinScheduler
         protected Padding headerMargin = new Padding(0, 5, 0, 5);
         protected Padding dataRowMargin = new Padding(0, 5, 0, 5);
 
-        protected Dictionary<Division,List<Team>> seatingCache;
-        protected int seatingCacheVersion = -1;
+        protected Dictionary<Division,List<Team>> seedingCache;
+        protected int seedingCacheVersion = -1;
 
 
         //Fonts
@@ -39,7 +39,7 @@ namespace SomeTechie.RoundRobinScheduler
             }
         }
 
-        public SeatingDisplay()
+        public SeedingDisplay()
         {
             InitializeComponent();
             calcuateFonts();
@@ -55,7 +55,7 @@ namespace SomeTechie.RoundRobinScheduler
 
         void Controller_GameResultChanged(object sender, GameResultChangedEventArgs e)
         {
-            regenerateSeating();
+            regenerateSeeding();
         }
 
         void Controller_TournamentChanged(object sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace SomeTechie.RoundRobinScheduler
             {
                 refreshSizing();
                 Refresh();
-                regenerateSeating();
+                regenerateSeeding();
             }
         }
 
@@ -101,47 +101,47 @@ namespace SomeTechie.RoundRobinScheduler
             scrollingPanel.Width = Width;
             scrollingPanel.Height = Height - headerHeight;
 
-            Dictionary<Division, List<Team>> seating = getSeating();
-            if (seating == null) return;
-            int maxSeatingLength = 0;
-            foreach (KeyValuePair<Division, List<Team>> divisionSeating in seating)
+            Dictionary<Division, List<Team>> seeding = getSeeding();
+            if (seeding == null) return;
+            int maxSeedingLength = 0;
+            foreach (KeyValuePair<Division, List<Team>> divisionSeeding in seeding)
             {
-                if (divisionSeating.Value.Count > maxSeatingLength) maxSeatingLength = divisionSeating.Value.Count;
+                if (divisionSeeding.Value.Count > maxSeedingLength) maxSeedingLength = divisionSeeding.Value.Count;
             }
 
-            seatingPanel.Height = maxSeatingLength * dataRowHeight;
+            seedingPanel.Height = maxSeedingLength * dataRowHeight;
 
             //Calculate draw width (width minus scrollbars if applicable)
             drawWidth = Width;
             if (scrollingPanel.VerticalScroll.Visible) drawWidth -= SystemInformation.VerticalScrollBarWidth;
 
-            divisionWidth = (int)Math.Floor((decimal)drawWidth / seating.Count);
+            divisionWidth = (int)Math.Floor((decimal)drawWidth / seeding.Count);
         }
 
-        private void SeatingDisplay_Load(object sender, EventArgs e)
+        private void SeedingDisplay_Load(object sender, EventArgs e)
         {
             refreshSizing();
         }
 
-        private void SeatingDisplay_Resize(object sender, EventArgs e)
+        private void SeedingDisplay_Resize(object sender, EventArgs e)
         {
             refreshSizing();
         }
 
-        private Dictionary<Division, List<Team>> getSeating()
+        private Dictionary<Division, List<Team>> getSeeding()
         {
-            if (Tournament!=null && seatingCacheVersion != Tournament.ScheduleVersion)
+            if (Tournament!=null && seedingCacheVersion != Tournament.ScheduleVersion)
             {
-                regenerateSeating(false);
-                seatingCacheVersion = Tournament.ScheduleVersion;
+                regenerateSeeding(false);
+                seedingCacheVersion = Tournament.ScheduleVersion;
             }
 
-            return seatingCache;
+            return seedingCache;
         }
-        private void regenerateSeating(bool repaint = true)
+        private void regenerateSeeding(bool repaint = true)
         {
             if (Tournament == null) return;
-            seatingCache = Tournament.CalculateSeatingByDivisions();
+            seedingCache = Tournament.CalculateSeedingByDivisions();
 
             if (repaint)
             {
@@ -155,9 +155,9 @@ namespace SomeTechie.RoundRobinScheduler
         {
             e.Graphics.Clear(BackColor);
 
-            Dictionary<Division, List<Team>> seating = getSeating();
+            Dictionary<Division, List<Team>> seeding = getSeeding();
 
-            if (seating == null) return;
+            if (seeding == null) return;
 
             int drawTop = 0;
             int drawLeft;
@@ -169,7 +169,7 @@ namespace SomeTechie.RoundRobinScheduler
             headerStringFormat.LineAlignment = StringAlignment.Center;
 
             //Division headers
-            foreach (KeyValuePair<Division, List<Team>> division in seating)
+            foreach (KeyValuePair<Division, List<Team>> division in seeding)
             {
                 string headerTitle = division.Key.Name;
                 RectangleF divisionHeaderRect =
@@ -186,13 +186,13 @@ namespace SomeTechie.RoundRobinScheduler
             //e.Graphics.DrawLine(headerShadowPen, new PointF(0, roundHeaderRect.Bottom - 1), new PointF(drawWidth, roundHeaderRect.Bottom - 1));
         }
 
-        private void seatingPanel_Paint(object sender, PaintEventArgs e)
+        private void seedingPanel_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(seatingPanel.BackColor);
+            e.Graphics.Clear(seedingPanel.BackColor);
 
-            Dictionary<Division, List<Team>> seating = getSeating();
+            Dictionary<Division, List<Team>> seeding = getSeeding();
 
-            if (seating == null) return;
+            if (seeding == null) return;
 
             StringFormat dataStringFormat = new StringFormat();
             dataStringFormat.Alignment = StringAlignment.Near;
@@ -202,12 +202,12 @@ namespace SomeTechie.RoundRobinScheduler
 
             int drawLeft = 0;
             int drawTop;
-            foreach (KeyValuePair<Division, List<Team>> divisionSeating in seating)
+            foreach (KeyValuePair<Division, List<Team>> divisionSeeding in seeding)
             {
                 drawTop = 0;
-                for (int i = 0; i < divisionSeating.Value.Count;i++ )
+                for (int i = 0; i < divisionSeeding.Value.Count;i++ )
                 {
-                    Team team = divisionSeating.Value[i];
+                    Team team = divisionSeeding.Value[i];
                     RectangleF dataRect =
                         new RectangleF(
                             drawLeft,

@@ -260,6 +260,11 @@ namespace SomeTechie.RoundRobinScheduleGenerator
         {
             get
             {
+                if (IsCompleted)
+                {
+                    return false;
+                }
+
                 foreach (KeyValuePair<string, TeamGameResult> teamResult in TeamGameResults)
                 {
                     if (teamResult.Value.NumPoints > 0)return true;

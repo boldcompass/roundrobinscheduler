@@ -34,11 +34,8 @@
             this.lblTeamsLocked = new System.Windows.Forms.Label();
             this.panelDivisions = new System.Windows.Forms.TableLayoutPanel();
             this.grpCollege = new System.Windows.Forms.GroupBox();
-            this.dtmCollege = new SomeTechie.RoundRobinScheduler.EditableItemsManager();
             this.grpRookie = new System.Windows.Forms.GroupBox();
-            this.dtmRookie = new SomeTechie.RoundRobinScheduler.EditableItemsManager();
             this.grpPro = new System.Windows.Forms.GroupBox();
-            this.dtmPro = new SomeTechie.RoundRobinScheduler.EditableItemsManager();
             this.tabPageScoreKeepers = new System.Windows.Forms.TabPage();
             this.serverTabControl = new System.Windows.Forms.TabControl();
             this.serverTabPageWiFi = new System.Windows.Forms.TabPage();
@@ -61,13 +58,9 @@
             this.lblProxyStatusText = new System.Windows.Forms.Label();
             this.lblProxyUrl = new System.Windows.Forms.Label();
             this.proxyUrlQrCodePanel = new System.Windows.Forms.Panel();
-            this.scorekeepersManager = new SomeTechie.RoundRobinScheduler.ScorekeepersManager();
             this.tabPageScoreKeepersSchedule = new System.Windows.Forms.TabPage();
-            this.scoreKeepersScheduleDisplay1 = new SomeTechie.RoundRobinScheduler.ScoreKeepersScheduleDisplay();
             this.tabPageSchedule = new System.Windows.Forms.TabPage();
-            this.scheduleDisplay = new SomeTechie.RoundRobinScheduler.ScheduleDisplay();
-            this.tabPageSeating = new System.Windows.Forms.TabPage();
-            this.seatingDisplay = new SomeTechie.RoundRobinScheduler.SeatingDisplay();
+            this.tabPageSeeding = new System.Windows.Forms.TabPage();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,12 +98,20 @@
             this.proxyStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoSavingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AutoSaveFailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currentRoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.saveLogDialog = new System.Windows.Forms.SaveFileDialog();
             this.printDialog = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
             this.pageSetupDialog = new System.Windows.Forms.PageSetupDialog();
+            this.dtmCollege = new SomeTechie.RoundRobinScheduler.EditableItemsManager();
+            this.dtmRookie = new SomeTechie.RoundRobinScheduler.EditableItemsManager();
+            this.dtmPro = new SomeTechie.RoundRobinScheduler.EditableItemsManager();
+            this.scorekeepersManager = new SomeTechie.RoundRobinScheduler.ScorekeepersManager();
+            this.scoreKeepersScheduleDisplay1 = new SomeTechie.RoundRobinScheduler.ScoreKeepersScheduleDisplay();
+            this.scheduleDisplay = new SomeTechie.RoundRobinScheduler.ScheduleDisplay();
+            this.seedingDisplay = new SomeTechie.RoundRobinScheduler.SeedingDisplay();
             this.tabControl.SuspendLayout();
             this.tabPageTeams.SuspendLayout();
             this.panelDivisions.SuspendLayout();
@@ -124,7 +125,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgProxyWaiting)).BeginInit();
             this.tabPageScoreKeepersSchedule.SuspendLayout();
             this.tabPageSchedule.SuspendLayout();
-            this.tabPageSeating.SuspendLayout();
+            this.tabPageSeeding.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,7 +135,7 @@
             this.tabControl.Controls.Add(this.tabPageScoreKeepers);
             this.tabControl.Controls.Add(this.tabPageScoreKeepersSchedule);
             this.tabControl.Controls.Add(this.tabPageSchedule);
-            this.tabControl.Controls.Add(this.tabPageSeating);
+            this.tabControl.Controls.Add(this.tabPageSeeding);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 28);
             this.tabControl.Margin = new System.Windows.Forms.Padding(0);
@@ -201,21 +202,6 @@
             this.grpCollege.TabStop = false;
             this.grpCollege.Text = "College";
             // 
-            // dtmCollege
-            // 
-            this.dtmCollege.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtmCollege.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.dtmCollege.ItemsList = ((System.Collections.Generic.List<string>)(resources.GetObject("dtmCollege.ItemsList")));
-            this.dtmCollege.ItemsText = "Team Names:";
-            this.dtmCollege.ItemStringFormat = "C{0}";
-            this.dtmCollege.Location = new System.Drawing.Point(4, 23);
-            this.dtmCollege.LockRearrange = false;
-            this.dtmCollege.Margin = new System.Windows.Forms.Padding(4);
-            this.dtmCollege.Name = "dtmCollege";
-            this.dtmCollege.NumItemsText = "Number of teams";
-            this.dtmCollege.Size = new System.Drawing.Size(352, 404);
-            this.dtmCollege.TabIndex = 1;
-            // 
             // grpRookie
             // 
             this.grpRookie.Controls.Add(this.dtmRookie);
@@ -228,21 +214,6 @@
             this.grpRookie.TabIndex = 2;
             this.grpRookie.TabStop = false;
             this.grpRookie.Text = "Rookie";
-            // 
-            // dtmRookie
-            // 
-            this.dtmRookie.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtmRookie.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.dtmRookie.ItemsList = ((System.Collections.Generic.List<string>)(resources.GetObject("dtmRookie.ItemsList")));
-            this.dtmRookie.ItemsText = "Team Names:";
-            this.dtmRookie.ItemStringFormat = "R{0}";
-            this.dtmRookie.Location = new System.Drawing.Point(4, 23);
-            this.dtmRookie.LockRearrange = false;
-            this.dtmRookie.Margin = new System.Windows.Forms.Padding(4);
-            this.dtmRookie.Name = "dtmRookie";
-            this.dtmRookie.NumItemsText = "Number of teams";
-            this.dtmRookie.Size = new System.Drawing.Size(353, 404);
-            this.dtmRookie.TabIndex = 2;
             // 
             // grpPro
             // 
@@ -257,21 +228,6 @@
             this.grpPro.TabStop = false;
             this.grpPro.Text = "Pro";
             // 
-            // dtmPro
-            // 
-            this.dtmPro.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtmPro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.dtmPro.ItemsList = ((System.Collections.Generic.List<string>)(resources.GetObject("dtmPro.ItemsList")));
-            this.dtmPro.ItemsText = "Team Names:";
-            this.dtmPro.ItemStringFormat = "P{0}";
-            this.dtmPro.Location = new System.Drawing.Point(4, 23);
-            this.dtmPro.LockRearrange = false;
-            this.dtmPro.Margin = new System.Windows.Forms.Padding(4);
-            this.dtmPro.Name = "dtmPro";
-            this.dtmPro.NumItemsText = "Number of teams";
-            this.dtmPro.Size = new System.Drawing.Size(352, 404);
-            this.dtmPro.TabIndex = 0;
-            // 
             // tabPageScoreKeepers
             // 
             this.tabPageScoreKeepers.BackColor = System.Drawing.Color.White;
@@ -280,7 +236,7 @@
             this.tabPageScoreKeepers.Location = new System.Drawing.Point(4, 25);
             this.tabPageScoreKeepers.Name = "tabPageScoreKeepers";
             this.tabPageScoreKeepers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageScoreKeepers.Size = new System.Drawing.Size(192, 71);
+            this.tabPageScoreKeepers.Size = new System.Drawing.Size(1105, 443);
             this.tabPageScoreKeepers.TabIndex = 3;
             this.tabPageScoreKeepers.Text = "Score Keepers";
             // 
@@ -316,7 +272,7 @@
             this.lnkLaunchWebInterface.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lnkLaunchWebInterface.AutoSize = true;
             this.lnkLaunchWebInterface.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.lnkLaunchWebInterface.Location = new System.Drawing.Point(6, 231);
+            this.lnkLaunchWebInterface.Location = new System.Drawing.Point(6, 207);
             this.lnkLaunchWebInterface.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.lnkLaunchWebInterface.Name = "lnkLaunchWebInterface";
             this.lnkLaunchWebInterface.Size = new System.Drawing.Size(349, 39);
@@ -384,7 +340,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.webInterfaceUrlQrCodePanel.Location = new System.Drawing.Point(9, 57);
             this.webInterfaceUrlQrCodePanel.Name = "webInterfaceUrlQrCodePanel";
-            this.webInterfaceUrlQrCodePanel.Size = new System.Drawing.Size(442, 171);
+            this.webInterfaceUrlQrCodePanel.Size = new System.Drawing.Size(442, 147);
             this.webInterfaceUrlQrCodePanel.TabIndex = 12;
             this.webInterfaceUrlQrCodePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.webInterfaceUrlQrCodePanel_Paint);
             // 
@@ -520,33 +476,15 @@
             this.proxyUrlQrCodePanel.TabIndex = 19;
             this.proxyUrlQrCodePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.proxyUrlQrCodePanel_Paint);
             // 
-            // scorekeepersManager
-            // 
-            this.scorekeepersManager.Location = new System.Drawing.Point(3, 3);
-            this.scorekeepersManager.Margin = new System.Windows.Forms.Padding(4);
-            this.scorekeepersManager.Name = "scorekeepersManager";
-            this.scorekeepersManager.Size = new System.Drawing.Size(621, 428);
-            this.scorekeepersManager.TabIndex = 0;
-            // 
             // tabPageScoreKeepersSchedule
             // 
             this.tabPageScoreKeepersSchedule.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageScoreKeepersSchedule.Controls.Add(this.scoreKeepersScheduleDisplay1);
             this.tabPageScoreKeepersSchedule.Location = new System.Drawing.Point(4, 25);
             this.tabPageScoreKeepersSchedule.Name = "tabPageScoreKeepersSchedule";
-            this.tabPageScoreKeepersSchedule.Size = new System.Drawing.Size(192, 71);
+            this.tabPageScoreKeepersSchedule.Size = new System.Drawing.Size(1105, 443);
             this.tabPageScoreKeepersSchedule.TabIndex = 4;
             this.tabPageScoreKeepersSchedule.Text = "Score Keepers Schedule";
-            // 
-            // scoreKeepersScheduleDisplay1
-            // 
-            this.scoreKeepersScheduleDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scoreKeepersScheduleDisplay1.Location = new System.Drawing.Point(0, 0);
-            this.scoreKeepersScheduleDisplay1.Margin = new System.Windows.Forms.Padding(0);
-            this.scoreKeepersScheduleDisplay1.Name = "scoreKeepersScheduleDisplay1";
-            this.scoreKeepersScheduleDisplay1.NumRounds = 1;
-            this.scoreKeepersScheduleDisplay1.Size = new System.Drawing.Size(192, 71);
-            this.scoreKeepersScheduleDisplay1.TabIndex = 0;
             // 
             // tabPageSchedule
             // 
@@ -555,41 +493,20 @@
             this.tabPageSchedule.Location = new System.Drawing.Point(4, 25);
             this.tabPageSchedule.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageSchedule.Name = "tabPageSchedule";
-            this.tabPageSchedule.Size = new System.Drawing.Size(192, 71);
+            this.tabPageSchedule.Size = new System.Drawing.Size(1105, 443);
             this.tabPageSchedule.TabIndex = 0;
             this.tabPageSchedule.Text = "Schedule";
             // 
-            // scheduleDisplay
+            // tabPageSeeding
             // 
-            this.scheduleDisplay.BackColor = System.Drawing.SystemColors.Control;
-            this.scheduleDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scheduleDisplay.Location = new System.Drawing.Point(0, 0);
-            this.scheduleDisplay.Margin = new System.Windows.Forms.Padding(0);
-            this.scheduleDisplay.Name = "scheduleDisplay";
-            this.scheduleDisplay.Size = new System.Drawing.Size(192, 71);
-            this.scheduleDisplay.TabIndex = 2;
-            // 
-            // tabPageSeating
-            // 
-            this.tabPageSeating.BackColor = System.Drawing.Color.White;
-            this.tabPageSeating.Controls.Add(this.seatingDisplay);
-            this.tabPageSeating.Location = new System.Drawing.Point(4, 25);
-            this.tabPageSeating.Name = "tabPageSeating";
-            this.tabPageSeating.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSeating.Size = new System.Drawing.Size(192, 71);
-            this.tabPageSeating.TabIndex = 2;
-            this.tabPageSeating.Text = "Seating";
-            // 
-            // seatingDisplay
-            // 
-            this.seatingDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seatingDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.seatingDisplay.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.seatingDisplay.Location = new System.Drawing.Point(3, 3);
-            this.seatingDisplay.Margin = new System.Windows.Forms.Padding(4);
-            this.seatingDisplay.Name = "seatingDisplay";
-            this.seatingDisplay.Size = new System.Drawing.Size(186, 65);
-            this.seatingDisplay.TabIndex = 0;
+            this.tabPageSeeding.BackColor = System.Drawing.Color.White;
+            this.tabPageSeeding.Controls.Add(this.seedingDisplay);
+            this.tabPageSeeding.Location = new System.Drawing.Point(4, 29);
+            this.tabPageSeeding.Name = "tabPageSeeding";
+            this.tabPageSeeding.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSeeding.Size = new System.Drawing.Size(1105, 439);
+            this.tabPageSeeding.TabIndex = 2;
+            this.tabPageSeeding.Text = "Seeding";
             // 
             // menuStrip
             // 
@@ -601,7 +518,8 @@
             this.webServerStatusToolStripMenuItem,
             this.proxyStatusToolStripMenuItem,
             this.autoSavingToolStripMenuItem,
-            this.AutoSaveFailedToolStripMenuItem});
+            this.AutoSaveFailedToolStripMenuItem,
+            this.currentRoundToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1113, 28);
@@ -883,6 +801,16 @@
             this.AutoSaveFailedToolStripMenuItem.Text = "Auto Save Failed";
             this.AutoSaveFailedToolStripMenuItem.Visible = false;
             // 
+            // currentRoundToolStripMenuItem
+            // 
+            this.currentRoundToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.currentRoundToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.currentRoundToolStripMenuItem.Name = "currentRoundToolStripMenuItem";
+            this.currentRoundToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
+            this.currentRoundToolStripMenuItem.Text = "Round:";
+            this.currentRoundToolStripMenuItem.Visible = false;
+            this.currentRoundToolStripMenuItem.Click += new System.EventHandler(this.currentRoundToolStripMenuItem_Click);
+            // 
             // openFileDialog
             // 
             this.openFileDialog.Filter = "3 on 3 Schedule files|*.3o3|All Files|*.*|XML Files|*.xml";
@@ -910,6 +838,90 @@
             this.printPreviewDialog.Name = "printPreviewDialog";
             this.printPreviewDialog.ShowIcon = false;
             this.printPreviewDialog.Visible = false;
+            // 
+            // dtmCollege
+            // 
+            this.dtmCollege.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtmCollege.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.dtmCollege.ItemsList = ((System.Collections.Generic.List<string>)(resources.GetObject("dtmCollege.ItemsList")));
+            this.dtmCollege.ItemsText = "Team Names:";
+            this.dtmCollege.ItemStringFormat = "C{0}";
+            this.dtmCollege.Location = new System.Drawing.Point(4, 23);
+            this.dtmCollege.LockRearrange = false;
+            this.dtmCollege.Margin = new System.Windows.Forms.Padding(4);
+            this.dtmCollege.Name = "dtmCollege";
+            this.dtmCollege.NumItemsText = "Number of teams";
+            this.dtmCollege.Size = new System.Drawing.Size(352, 404);
+            this.dtmCollege.TabIndex = 1;
+            // 
+            // dtmRookie
+            // 
+            this.dtmRookie.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtmRookie.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.dtmRookie.ItemsList = ((System.Collections.Generic.List<string>)(resources.GetObject("dtmRookie.ItemsList")));
+            this.dtmRookie.ItemsText = "Team Names:";
+            this.dtmRookie.ItemStringFormat = "R{0}";
+            this.dtmRookie.Location = new System.Drawing.Point(4, 23);
+            this.dtmRookie.LockRearrange = false;
+            this.dtmRookie.Margin = new System.Windows.Forms.Padding(4);
+            this.dtmRookie.Name = "dtmRookie";
+            this.dtmRookie.NumItemsText = "Number of teams";
+            this.dtmRookie.Size = new System.Drawing.Size(353, 404);
+            this.dtmRookie.TabIndex = 2;
+            // 
+            // dtmPro
+            // 
+            this.dtmPro.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtmPro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.dtmPro.ItemsList = ((System.Collections.Generic.List<string>)(resources.GetObject("dtmPro.ItemsList")));
+            this.dtmPro.ItemsText = "Team Names:";
+            this.dtmPro.ItemStringFormat = "P{0}";
+            this.dtmPro.Location = new System.Drawing.Point(4, 23);
+            this.dtmPro.LockRearrange = false;
+            this.dtmPro.Margin = new System.Windows.Forms.Padding(4);
+            this.dtmPro.Name = "dtmPro";
+            this.dtmPro.NumItemsText = "Number of teams";
+            this.dtmPro.Size = new System.Drawing.Size(352, 404);
+            this.dtmPro.TabIndex = 0;
+            // 
+            // scorekeepersManager
+            // 
+            this.scorekeepersManager.Location = new System.Drawing.Point(3, 3);
+            this.scorekeepersManager.Margin = new System.Windows.Forms.Padding(4);
+            this.scorekeepersManager.Name = "scorekeepersManager";
+            this.scorekeepersManager.Size = new System.Drawing.Size(621, 428);
+            this.scorekeepersManager.TabIndex = 0;
+            // 
+            // scoreKeepersScheduleDisplay1
+            // 
+            this.scoreKeepersScheduleDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scoreKeepersScheduleDisplay1.Location = new System.Drawing.Point(0, 0);
+            this.scoreKeepersScheduleDisplay1.Margin = new System.Windows.Forms.Padding(0);
+            this.scoreKeepersScheduleDisplay1.Name = "scoreKeepersScheduleDisplay1";
+            this.scoreKeepersScheduleDisplay1.NumRounds = 1;
+            this.scoreKeepersScheduleDisplay1.Size = new System.Drawing.Size(1105, 443);
+            this.scoreKeepersScheduleDisplay1.TabIndex = 0;
+            // 
+            // scheduleDisplay
+            // 
+            this.scheduleDisplay.BackColor = System.Drawing.SystemColors.Control;
+            this.scheduleDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scheduleDisplay.Location = new System.Drawing.Point(0, 0);
+            this.scheduleDisplay.Margin = new System.Windows.Forms.Padding(0);
+            this.scheduleDisplay.Name = "scheduleDisplay";
+            this.scheduleDisplay.Size = new System.Drawing.Size(1105, 443);
+            this.scheduleDisplay.TabIndex = 2;
+            // 
+            // seedingDisplay
+            // 
+            this.seedingDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seedingDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.seedingDisplay.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.seedingDisplay.Location = new System.Drawing.Point(3, 3);
+            this.seedingDisplay.Margin = new System.Windows.Forms.Padding(4);
+            this.seedingDisplay.Name = "seedingDisplay";
+            this.seedingDisplay.Size = new System.Drawing.Size(1099, 433);
+            this.seedingDisplay.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -941,7 +953,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgProxyWaiting)).EndInit();
             this.tabPageScoreKeepersSchedule.ResumeLayout(false);
             this.tabPageSchedule.ResumeLayout(false);
-            this.tabPageSeating.ResumeLayout(false);
+            this.tabPageSeeding.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -980,8 +992,8 @@
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog;
         private System.Windows.Forms.ToolStripMenuItem pageSetupToolStripMenuItem;
         private System.Windows.Forms.PageSetupDialog pageSetupDialog;
-        private System.Windows.Forms.TabPage tabPageSeating;
-        private SeatingDisplay seatingDisplay;
+        private System.Windows.Forms.TabPage tabPageSeeding;
+        private SeedingDisplay seedingDisplay;
         private System.Windows.Forms.TabPage tabPageScoreKeepers;
         private ScorekeepersManager scorekeepersManager;
         private System.Windows.Forms.TabPage tabPageScoreKeepersSchedule;
@@ -1033,6 +1045,7 @@
         private System.Windows.Forms.Label lblProxySharedKey;
         private System.Windows.Forms.Button btnStopProxy;
         private System.Windows.Forms.Button btnStartProxy;
+        private System.Windows.Forms.ToolStripMenuItem currentRoundToolStripMenuItem;
 
     }
 }

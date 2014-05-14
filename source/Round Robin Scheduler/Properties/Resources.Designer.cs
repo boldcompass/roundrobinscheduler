@@ -137,6 +137,15 @@ namespace SomeTechie.RoundRobinScheduler.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Round: {0}.
+        /// </summary>
+        internal static string CurrentRound {
+            get {
+                return ResourceManager.GetString("CurrentRound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap EditScoreIcon {
@@ -492,6 +501,15 @@ namespace SomeTechie.RoundRobinScheduler.Properties {
         internal static string SaveChangesMessage {
             get {
                 return ResourceManager.GetString("SaveChangesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tournament Complete.
+        /// </summary>
+        internal static string TournamentComplete {
+            get {
+                return ResourceManager.GetString("TournamentComplete", resourceCulture);
             }
         }
         

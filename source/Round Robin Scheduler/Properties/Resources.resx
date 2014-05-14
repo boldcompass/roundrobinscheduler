@@ -331,8 +331,13 @@ Are you sure you want to unlock?</value>
   <data name="WebServerStartFailed5Times" xml:space="preserve">
     <value>Starting web server failed 5 times. Check the log for more details.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="LICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\LICENSE.TXT;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="CurrentRound" xml:space="preserve">
+    <value>Round: {0}</value>
+  </data>
+  <data name="TournamentComplete" xml:space="preserve">
+    <value>Tournament Complete</value>
   </data>
 </root>

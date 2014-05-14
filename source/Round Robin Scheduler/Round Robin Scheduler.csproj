@@ -32,7 +32,7 @@
     <PublisherName>Some Techie</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -156,11 +156,11 @@
     <Compile Include="ScorekeepersManager.Designer.cs">
       <DependentUpon>ScorekeepersManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="SeatingDisplay.cs">
+    <Compile Include="SeedingDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SeatingDisplay.Designer.cs">
-      <DependentUpon>SeatingDisplay.cs</DependentUpon>
+    <Compile Include="SeedingDisplay.Designer.cs">
+      <DependentUpon>SeedingDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="EditableItemsManager.cs">
       <SubType>UserControl</SubType>
@@ -231,8 +231,8 @@
     <EmbeddedResource Include="ScorekeepersManager.resx">
       <DependentUpon>ScorekeepersManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SeatingDisplay.resx">
-      <DependentUpon>SeatingDisplay.cs</DependentUpon>
+    <EmbeddedResource Include="SeedingDisplay.resx">
+      <DependentUpon>SeedingDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="mime.dat">

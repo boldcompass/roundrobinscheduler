@@ -800,17 +800,17 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             return robinRounds;
         }
 
-        public Dictionary<Division, List<Team>> CalculateSeatingByDivisions()
+        public Dictionary<Division, List<Team>> CalculateSeedingByDivisions()
         {
-            Dictionary<Division, List<Team>> seatingForDivision = new Dictionary<Division, List<Team>>();
+            Dictionary<Division, List<Team>> seeedingForDivision = new Dictionary<Division, List<Team>>();
             foreach (Division division in Divisions)
             {
-                seatingForDivision[division] = CalculateSeatingForDivision(division);
+                seeedingForDivision[division] = CalculateSeedingForDivision(division);
             }
-            return seatingForDivision;
+            return seeedingForDivision;
         }
 
-        protected List<Team> CalculateSeatingForDivision(Division division)
+        protected List<Team> CalculateSeedingForDivision(Division division)
         {
             List<RoundRobinTeamData> teamDatas = new List<RoundRobinTeamData>(division.RoundRobinDatas);
             Comparison<RoundRobinTeamData> CompareTeams = delegate(RoundRobinTeamData x, RoundRobinTeamData y)

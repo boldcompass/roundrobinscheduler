@@ -55,8 +55,44 @@ namespace SomeTechie.RoundRobinScheduler
             Controller.ScoreKeepersAssignmentChanged += new EventHandler(Controller_ScoreKeepersAssignmentChanged);
             Controller.ScoreKeepersChanged += new EventHandler(Controller_ScoreKeepersChanged);
             Controller.TeamNameChanged += new TeamNameChangedEventHandler(Controller_TeamNameChanged);
+            Controller.CourtRoundsIsActiveChanged += new EventHandler(Controller_CourtRoundsIsActiveChanged);
+            Controller.CourtRoundsIsInProgressChanged += new EventHandler(Controller_CourtRoundsIsInProgressChanged);
             webServer.StateChanged += new EventHandler(webServer_StateChanged);
             autoSaveTimer.Elapsed += new System.Timers.ElapsedEventHandler(autoSaveTimer_Elapsed);
+        }
+
+        void Controller_CourtRoundsIsInProgressChanged(object sender, EventArgs e)
+        {
+            this.refreshCurrentRoundDisplay();
+        }
+
+        void Controller_CourtRoundsIsActiveChanged(object sender, EventArgs e)
+        {
+            this.refreshCurrentRoundDisplay();
+        }
+
+        void refreshCurrentRoundDisplay()
+        {
+            bool visibility = false;
+            if (Tournament != null)
+            {
+                if (Tournament.IsCompleted)
+                {
+                    currentRoundToolStripMenuItem.Text = Resources.TournamentComplete;
+                    visibility = true;
+                }
+                else if (Tournament.IsInProgress)
+                {
+                    CourtRound activeCourtRound = Tournament.ActiveCourtRound;
+                    if (activeCourtRound != null)
+                    {
+                        currentRoundToolStripMenuItem.Text = String.Format(Resources.CurrentRound, activeCourtRound.RoundNumber);
+                        visibility = true;
+                    }
+                } 
+            }
+
+            currentRoundToolStripMenuItem.Visible = visibility;
         }
 
         void Controller_TeamNameChanged(object sender, TeamNameChangedEventArgs e)
@@ -96,14 +132,14 @@ namespace SomeTechie.RoundRobinScheduler
             else if (Tournament.IsCompleted)
             {
                 lockTeamsRearrange();
-                tabControl.SelectTab(tabPageSeating);
+                tabControl.SelectTab(tabPageSeeding);
             }
             else
             {
                 unlockTeamsRearrange();
                 tabControl.SelectTab(tabPageTeams);
-
             }
+            this.refreshCurrentRoundDisplay();
             this.handleDataChanged();
         }
 
@@ -1222,6 +1258,18 @@ namespace SomeTechie.RoundRobinScheduler
         private void btnStopProxy_Click(object sender, EventArgs e)
         {
             stopProxyAsync();
+        }
+
+        private void currentRoundToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Tournament != null && Tournament.IsCompleted)
+            {
+                tabControl.SelectTab(tabPageSeeding);
+            }
+            else
+            {
+                tabControl.SelectTab(tabPageSchedule);
+            }
         }
         //End Proxy Interface
     }
