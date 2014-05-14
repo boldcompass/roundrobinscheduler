@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Three_on_Three_Round_Robin_Scheduler.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AccessCodeMessageLine1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Your access code is {0}</Value>
+    </Setting>
+    <Setting Name="AccessCodeMessageLine2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Please show this code to PS at the info tent.</Value>
+    </Setting>
+    <Setting Name="accessCodeMessageMakeBold" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="numCourts" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="AutoSave" Type="System.String" Scope="User">
+      <Value Profile="(Default)">autoSaveToolStripMenuItem</Value>
+    </Setting>
+    <Setting Name="ProxyUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ProxySharedKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ProxyUploadStaticFileFailed" xml:space="preserve">
+    <value>Upload Static Proxy File Failed "{0}"</value>
+  </data>
+  <data name="ProxyInvaildUrlTitle" xml:space="preserve">
+    <value>Invalid Url</value>
+  </data>
+  <data name="WebServerOperationFailedMessage" xml:space="preserve">
+    <value>The web server failed to {0}.</value>
+  </data>
+  <data name="ErrorWritingToLogMessage" xml:space="preserve">
+    <value>Error writing to log:
+
+{0}</value>
+  </data>
+  <data name="WebServerOperationFailedTitle" xml:space="preserve">
+    <value>Could Not {0} Web Server</value>
+  </data>
+  <data name="TournamentSaveFailedMessage" xml:space="preserve">
+    <value>The tournament failed to save.</value>
+  </data>
+  <data name="TournamentLoadFailedTitle" xml:space="preserve">
+    <value>Could Not Load Tournament</value>
+  </data>
+  <data name="ErrorPrintingScheduleMessage" xml:space="preserve">
+    <value>The shcedule failed to print.</value>
+  </data>
+  <data name="TournamentSaveFailedTitle" xml:space="preserve">
+    <value>Could Not Save Tournament</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorLogCopyFailedTitle" xml:space="preserve">
+    <value>Could Not Save Error Log</value>
+  </data>
+  <data name="TournamentLoadFailedMessage" xml:space="preserve">
+    <value>The tournament failed to load. This may mean that the file has been corrupted.</value>
+  </data>
+  <data name="AutoSaveCopyFailed" xml:space="preserve">
+    <value>Auto Save Copy Failed</value>
+  </data>
+  <data name="ErrorPrintingScheduleTitle" xml:space="preserve">
+    <value>Error Printing</value>
+  </data>
+  <data name="WebServerResumedLogMessage" xml:space="preserve">
+    <value>Web Server Resumed</value>
+  </data>
+  <data name="ProxyStartFailedTitle" xml:space="preserve">
+    <value>Start Proxy Failed</value>
+  </data>
+  <data name="UnlockTeams" xml:space="preserve">
+    <value>Unlock?</value>
+  </data>
+  <data name="ProxyStartFailed" xml:space="preserve">
+    <value>Could not start proxy.</value>
+  </data>
+  <data name="EditScoreIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit score icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WebServerStartedLogMessage" xml:space="preserve">
+    <value>Web Server Started</value>
+  </data>
+  <data name="WebServerConfirmStopMessage" xml:space="preserve">
+    <value>Are you sure you want to stop the web server?
+This will disable web access and end any current connections.</value>
+  </data>
+  <data name="WebServerRestart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="WebServerListenFailedPossibleThreadPause" xml:space="preserve">
+    <value>Listen Failed (Could be because the thread or listener was stopped)</value>
+  </data>
+  <data name="ErrorLogCopyFailedMessage" xml:space="preserve">
+    <value>The error log could not be saved.</value>
+  </data>
+  <data name="ErrorLogClearedTitle" xml:space="preserve">
+    <value>Error Log Cleared</value>
+  </data>
+  <data name="UnhandledExceptionMessage" xml:space="preserve">
+    <value>The following error has been added to the error log. The application will now exit:
+
+{0}</value>
+  </data>
+  <data name="LaunchWebInterfaceFailedTitle" xml:space="preserve">
+    <value>Could Not Launch Web Interface</value>
+  </data>
+  <data name="NewTournamentFailedMessage" xml:space="preserve">
+    <value>Could not create a new tournament.</value>
+  </data>
+  <data name="SaveChangesMessage" xml:space="preserve">
+    <value>Do you want to save changes made to {0}?</value>
+  </data>
+  <data name="ErrorLogClearFailedTitle" xml:space="preserve">
+    <value>Could Not Clear Error Log</value>
+  </data>
+  <data name="ErrorWritingToLogTitle" xml:space="preserve">
+    <value>Could Not Write To Error Log</value>
+  </data>
+  <data name="NoErrorLogTitle" xml:space="preserve">
+    <value>No Error Log</value>
+  </data>
+  <data name="WebServerConfirmStopTitle" xml:space="preserve">
+    <value>Stop Web Server?</value>
+  </data>
+  <data name="ErrorLogClearedMessage" xml:space="preserve">
+    <value>The error log was cleared successfully.</value>
+  </data>
+  <data name="ClearErrorLogMessage" xml:space="preserve">
+    <value>Are you sure you want to clear the error log?</value>
+  </data>
+  <data name="UnlockTeamsMessage" xml:space="preserve">
+    <value>Adding, removing, or moving teams after the tournament has started will cause the schedule to be regenerated, erasing all game scores.
+Are you sure you want to unlock?</value>
+  </data>
+  <data name="ProxyClearStaticFilesFailed" xml:space="preserve">
+    <value>Clear Static Proxy Files Failed</value>
+  </data>
+  <data name="ProxyStopFailed" xml:space="preserve">
+    <value>Could not stop proxy.</value>
+  </data>
+  <data name="WebServerStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes?</value>
+  </data>
+  <data name="arrowdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrowdown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="confirm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\confirm.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WebServerPausedLogMessage" xml:space="preserve">
+    <value>Web Server Paused</value>
+  </data>
+  <data name="WebServerListenFailed" xml:space="preserve">
+    <value>Listen Failed</value>
+  </data>
+  <data name="WebServerStoppedLogMessage" xml:space="preserve">
+    <value>Web Server Stopped</value>
+  </data>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrowup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrowup.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AutoSaveFailed" xml:space="preserve">
+    <value>Auto Save Failed</value>
+  </data>
+  <data name="ProxyInvalidUrl" xml:space="preserve">
+    <value>Invalid Proxy Url "{0}"</value>
+  </data>
+  <data name="WebServerStop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="UnhandledExceptionTitle" xml:space="preserve">
+    <value>Fatal Error</value>
+  </data>
+  <data name="ClearErrorLogTitle" xml:space="preserve">
+    <value>Clear Error Log?</value>
+  </data>
+  <data name="WinnerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\winner icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LaunchWebInterfaceFailedMessage" xml:space="preserve">
+    <value>The web interface could not be launched.</value>
+  </data>
+  <data name="remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoErrorLogMessage" xml:space="preserve">
+    <value>The error log has already been cleared or has not yet been created.</value>
+  </data>
+  <data name="ErrorLogClearFailedMessage" xml:space="preserve">
+    <value>The log could not be cleared.</value>
+  </data>
+  <data name="NewTournamentFailed" xml:space="preserve">
+    <value>New Tournament Failed</value>
+  </data>
+  <data name="proxywaiting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\proxywaiting.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProxyGetRequestsFailed" xml:space="preserve">
+    <value>Proxy Get Requests Failed</value>
+  </data>
+  <data name="ProxyGetRequestsFailedPossibleThreadPause" xml:space="preserve">
+    <value>Proxy Get Requests Failed (Could be because the listener was stopped)</value>
+  </data>
+  <data name="ProxyLaunchInterfaceFailed" xml:space="preserve">
+    <value>Could Not Launch Proxied Interface</value>
+  </data>
+  <data name="ProxyLaunchInterfaceFailedMessage" xml:space="preserve">
+    <value>The proxied interface could not be launhed.</value>
+  </data>
+  <data name="ProxyProcessRequestsFailed" xml:space="preserve">
+    <value>Process Request Failed {0}</value>
+  </data>
+  <data name="ProxyReplyFailed" xml:space="preserve">
+    <value>Proxy Reply Failed</value>
+  </data>
+  <data name="ProxySetUrlFailed" xml:space="preserve">
+    <value>Could not set proxy url.</value>
+  </data>
+  <data name="ProxySetUrlFailedTitle" xml:space="preserve">
+    <value>Set Proxy Url Failed</value>
+  </data>
+  <data name="WebServerStartFailed" xml:space="preserve">
+    <value>Web server start failed once.</value>
+  </data>
+  <data name="WebServerStartFailed5Times" xml:space="preserve">
+    <value>Starting web server failed 5 times. Check the log for more details.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="LICENSE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\LICENSE.TXT;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+</root>
