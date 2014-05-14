@@ -24,11 +24,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
         {
             get
             {
-                if (_vsID == null)
-                {
-                    _vsID = Team1.NumId.ToString() + "," + Team1.NumId.ToString();
-                }
-                return _vsID;
+                return CalculateVsId(Team1, Team2);
             }
         }
 
@@ -416,6 +412,11 @@ namespace SomeTechie.RoundRobinScheduleGenerator
         public override string ToString()
         {
             return string.Format("{0} vs {1}", Team1.ToString(), Team2.ToString());
+        }
+
+        public static string CalculateVsId(Team team1, Team team2)
+        {
+            return team1.NumId.ToString() + "," + team2.NumId.ToString();
         }
 
         public Game Clone()

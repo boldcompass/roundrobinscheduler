@@ -235,7 +235,6 @@
       <DependentUpon>SeatingDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="CodeSigning.pfx" />
     <None Include="mime.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

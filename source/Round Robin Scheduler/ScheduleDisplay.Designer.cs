@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.scrollingPanel = new System.Windows.Forms.Panel();
-            this.btnMoreRounds = new System.Windows.Forms.Button();
-            this.courtRoundsPaintable = new SomeTechie.RoundRobinScheduler.Paintable();
             this.scoreEditor = new SomeTechie.RoundRobinScheduler.ScoreEditor();
+            this.courtRoundsPaintable = new SomeTechie.RoundRobinScheduler.Paintable();
+            this.btnMoreRounds = new System.Windows.Forms.Button();
             this.scrollingPanel.SuspendLayout();
+            this.courtRoundsPaintable.SuspendLayout();
             this.SuspendLayout();
             // 
             // scrollingPanel
@@ -45,20 +46,17 @@
             this.scrollingPanel.Size = new System.Drawing.Size(371, 193);
             this.scrollingPanel.TabIndex = 0;
             // 
-            // btnMoreRounds
+            // scoreEditor
             // 
-            this.btnMoreRounds.AutoSize = true;
-            this.btnMoreRounds.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnMoreRounds.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoreRounds.Location = new System.Drawing.Point(304, 88);
-            this.btnMoreRounds.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.btnMoreRounds.Name = "btnMoreRounds";
-            this.btnMoreRounds.Size = new System.Drawing.Size(102, 23);
-            this.btnMoreRounds.TabIndex = 1;
-            this.btnMoreRounds.TabStop = false;
-            this.btnMoreRounds.Text = "Add More Rounds";
-            this.btnMoreRounds.UseVisualStyleBackColor = true;
-            this.btnMoreRounds.Click += new System.EventHandler(this.btnMoreRounds_Click);
+            this.scoreEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(107)))), ((int)(((byte)(0)))));
+            this.scoreEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreEditor.Location = new System.Drawing.Point(0, 0);
+            this.scoreEditor.Margin = new System.Windows.Forms.Padding(5);
+            this.scoreEditor.Name = "scoreEditor";
+            this.scoreEditor.Size = new System.Drawing.Size(233, 89);
+            this.scoreEditor.TabIndex = 1;
+            this.scoreEditor.Visible = false;
+            this.scoreEditor.scoreEditorClosed += new SomeTechie.RoundRobinScheduler.ScoreEditorClosedEventHandler(this.scoreEditor_scoreEditorClosed);
             // 
             // courtRoundsPaintable
             // 
@@ -78,17 +76,20 @@
             this.courtRoundsPaintable.MouseMove += new System.Windows.Forms.MouseEventHandler(this.courtRoundsPanel_MouseMove);
             this.courtRoundsPaintable.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.courtRoundsPaintable_PreviewKeyDown);
             // 
-            // scoreEditor
+            // btnMoreRounds
             // 
-            this.scoreEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(107)))), ((int)(((byte)(0)))));
-            this.scoreEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scoreEditor.Location = new System.Drawing.Point(0, 0);
-            this.scoreEditor.Margin = new System.Windows.Forms.Padding(5);
-            this.scoreEditor.Name = "scoreEditor";
-            this.scoreEditor.Size = new System.Drawing.Size(233, 89);
-            this.scoreEditor.TabIndex = 1;
-            this.scoreEditor.Visible = false;
-            this.scoreEditor.scoreEditorClosed += new SomeTechie.RoundRobinScheduler.ScoreEditorClosedEventHandler(this.scoreEditor_scoreEditorClosed);
+            this.btnMoreRounds.AutoSize = true;
+            this.btnMoreRounds.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMoreRounds.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMoreRounds.Location = new System.Drawing.Point(304, 88);
+            this.btnMoreRounds.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.btnMoreRounds.Name = "btnMoreRounds";
+            this.btnMoreRounds.Size = new System.Drawing.Size(102, 23);
+            this.btnMoreRounds.TabIndex = 1;
+            this.btnMoreRounds.TabStop = false;
+            this.btnMoreRounds.Text = "Add More Rounds";
+            this.btnMoreRounds.UseVisualStyleBackColor = true;
+            this.btnMoreRounds.Click += new System.EventHandler(this.btnMoreRounds_Click);
             // 
             // ScheduleDisplay
             // 
@@ -102,7 +103,8 @@
             this.Load += new System.EventHandler(this.ScheduleDisplay_Load);
             this.Resize += new System.EventHandler(this.ScheduleDisplay_Resize);
             this.scrollingPanel.ResumeLayout(false);
-            this.scrollingPanel.PerformLayout();
+            this.courtRoundsPaintable.ResumeLayout(false);
+            this.courtRoundsPaintable.PerformLayout();
             this.ResumeLayout(false);
 
         }

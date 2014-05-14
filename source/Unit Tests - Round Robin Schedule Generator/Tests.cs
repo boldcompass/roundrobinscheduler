@@ -10,8 +10,8 @@ namespace Unit_Tests___Round_Robin_Schedule_Generator
     [TestFixture]
     class Tests
     {
-        protected const int minTeams = 2;
-        protected const int maxTeams = 20;
+        protected const int minTeams = 0;
+        protected const int maxTeams = 13;
         protected const int minDivisions = 1;
         protected const int maxDivisions = 4;
         protected const int minCourts = 1;

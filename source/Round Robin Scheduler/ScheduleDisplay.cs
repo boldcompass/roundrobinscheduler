@@ -293,6 +293,7 @@ namespace SomeTechie.RoundRobinScheduler
             if (Tournament != null) courtRoundsPaintable.Height = (Tournament.CourtRounds.Count + 1) * courtRoundHeight;
             scrollingPanel.Top = headerHeight;
             scrollingPanel.Width = Width;
+            courtRoundsPaintable.Width = scrollingPanel.Width;
             scrollingPanel.Height = Height - headerHeight;
             this.PerformAutoScale();
 

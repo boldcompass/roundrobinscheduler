@@ -481,11 +481,26 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             _scheduleVersion++;
 
             List<List<RobinRound>> DivisionsRobinRounds = new List<List<RobinRound>>();
+            Dictionary<Team, int> TeamsNumberOfHomeGames = new Dictionary<Team, int>();
+            bool haveRobinRounds = false;
             foreach (Division division in Divisions)
             {
                 DivisionsRobinRounds.Add(((List<RobinRound>)RobinRoundsForDivision[division]));
+                if (RobinRoundsForDivision[division].Count > 0)
+                {
+                    haveRobinRounds = true;
+                }
+                foreach (Team team in division.Teams)
+                {
+                    TeamsNumberOfHomeGames.Add(team, 0);
+                }
             }
 
+            if (!haveRobinRounds)
+            {
+                // We don't have any games to work with
+                return CourtRounds;
+            }
 
             if (numRobinRounds < 1) numRobinRounds = TotalRobinRounds;
 
@@ -548,7 +563,17 @@ namespace SomeTechie.RoundRobinScheduleGenerator
 
                     double GamesSectionLength = PossibleGames.Count / NumCourts;
                     Game PickedGame = PossibleGames[(int)Math.Floor(GamesSectionLength * i)];
-                    Game ClonedGame = getGameClone(PickedGame);
+                    Game ClonedGame;
+
+                    if (TeamsNumberOfHomeGames[PickedGame.Team1] <= TeamsNumberOfHomeGames[PickedGame.Team2])
+                    {
+                        ClonedGame = getGame(PickedGame.Team1Data, PickedGame.Team2Data);
+                    }
+                    else
+                    {
+                        ClonedGame = getGame(PickedGame.Team2Data, PickedGame.Team1Data);
+                    }
+                    TeamsNumberOfHomeGames[ClonedGame.Team1]++;
 
 #if DEBUG
                     if (ClonedGame == null)
@@ -628,28 +653,39 @@ namespace SomeTechie.RoundRobinScheduleGenerator
 
         protected Dictionary<string, List<Game>> gameClones = new Dictionary<string, List<Game>>();
         protected Dictionary<string, int> gameCloneCount = new Dictionary<string, int>();
-        protected Game getGameClone(Game game)
+       
+            /*if (TeamsNumberOfHomeGames[firstTeamData.Team] <= TeamsNumberOfHomeGames[secondTeamData.Team])
+                        {
+                            game = new Game(firstTeamData, secondTeamData);
+                        }
+                        else
+                        {
+                            game = new Game(secondTeamData, firstTeamData);
+                        }
+                        TeamsNumberOfHomeGames[game.Team1Data.Team]++;
+                        */
+        protected Game getGame(RoundRobinTeamData team1Data, RoundRobinTeamData team2Data)
         {
-
-            if (!gameCloneCount.ContainsKey(game.vsID))
+            string vsID = Game.CalculateVsId(team1Data.Team, team2Data.Team);
+            if (!gameCloneCount.ContainsKey(vsID))
             {
-                gameCloneCount[game.vsID] = -1;
+                gameCloneCount[vsID] = -1;
             }
-            gameCloneCount[game.vsID]++;
+            gameCloneCount[vsID]++;
 
-            int index = gameCloneCount[game.vsID];
+            int index = gameCloneCount[vsID];
 
-            if (!gameClones.ContainsKey(game.vsID))
+            if (!gameClones.ContainsKey(vsID))
             {
-                gameClones.Add(game.vsID, new List<Game>());
+                gameClones.Add(vsID, new List<Game>());
             }
 
-            List<Game> clones = gameClones[game.vsID];
+            List<Game> clones = gameClones[vsID];
             Game clone;
 
             if (clones.Count <= index)
             {
-                clone = game.Clone();
+                clone = new Game(team1Data, team2Data);
                 clones.Add(clone);
             }
             else
@@ -718,12 +754,6 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             int numDays = (numTeams - 1);
             int halfSize = numTeams / 2;
             
-            Dictionary<Team, int> TeamsNumberOfHomeGames = new Dictionary<Team, int>();
-            foreach (RoundRobinTeamData teamData in TeamDatas)
-            {
-                TeamsNumberOfHomeGames.Add(teamData.Team, 0);
-            }
-            
             RoundRobinTeamData Team1Data = TeamDatas[0];
             TeamDatas.RemoveAt(0);
 
@@ -760,16 +790,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
 
                     if (!includeByeGames && !firstTeamData.IsBye && !secondTeamData.IsBye)
                     {
-                        Game game;
-                        if (TeamsNumberOfHomeGames[firstTeamData.Team] <= TeamsNumberOfHomeGames[secondTeamData.Team])
-                        {
-                            game = new Game(firstTeamData, secondTeamData);
-                        }
-                        else
-                        {
-                            game = new Game(secondTeamData, firstTeamData);
-                        }
-                        TeamsNumberOfHomeGames[game.Team1Data.Team]++;
+                        Game game = new Game(firstTeamData, secondTeamData);
                         robinRoundGames.Add(game);
                     }
                 }
