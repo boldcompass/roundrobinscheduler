@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.scrollingPanel = new System.Windows.Forms.Panel();
-            this.courtRoundsPaintable = new Paintable();
+            this.courtRoundsPaintable = new SomeTechie.RoundRobinScheduler.Paintable();
             this.controlsPanel = new System.Windows.Forms.Panel();
             this.numRoundsUpDwn = new System.Windows.Forms.NumericUpDown();
             this.assignScoreKeeperLbl = new System.Windows.Forms.Label();
@@ -50,13 +50,13 @@
             this.scrollingPanel.Size = new System.Drawing.Size(371, 193);
             this.scrollingPanel.TabIndex = 0;
             // 
-            // courtRoundsPanel
+            // courtRoundsPaintable
             // 
             this.courtRoundsPaintable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.courtRoundsPaintable.Location = new System.Drawing.Point(0, 0);
             this.courtRoundsPaintable.Margin = new System.Windows.Forms.Padding(0);
-            this.courtRoundsPaintable.Name = "courtRoundsPanel";
+            this.courtRoundsPaintable.Name = "courtRoundsPaintable";
             this.courtRoundsPaintable.Size = new System.Drawing.Size(371, 123);
             this.courtRoundsPaintable.TabIndex = 0;
             this.courtRoundsPaintable.Paint += new System.Windows.Forms.PaintEventHandler(this.courtRoundsPanel_Paint);

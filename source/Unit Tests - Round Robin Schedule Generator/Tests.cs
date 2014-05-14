@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System.Diagnostics;
 using SomeTechie.RoundRobinScheduleGenerator;
 
-namespace Unit_Tests___Round_Robin_Schedule_Generator
+namespace SomeTechie.RoundRobinScheduleGenerator.UnitTests
 {
     [TestFixture]
     class Tests

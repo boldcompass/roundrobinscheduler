@@ -8,7 +8,7 @@
     <ProjectGuid>{19C7B573-096F-4D55-B195-35A5FDF8564D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Unit_Tests___Round_Robin_Schedule_Generator</RootNamespace>
+    <RootNamespace>SomeTechie.RoundRobinScheduleGenerator.UnitTests</RootNamespace>
     <AssemblyName>Unit Tests - Round Robin Schedule Generator</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>\\psf\Home\Desktop\scheduler\</PublishUrl>
+    <PublishUrl>\\psf\Home\Documents\roundrobinscheduler-pages\downloads\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,15 +24,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://sometechie.github.io/roundrobin-scheduler/downloads/</InstallUrl>
-    <UpdateUrl>https://sometechie.github.io/roundrobin-scheduler/downloads/</UpdateUrl>
+    <InstallUrl>https://sometechie.github.io/roundrobinscheduler/downloads/</InstallUrl>
+    <UpdateUrl>https://sometechie.github.io/roundrobinscheduler/downloads/</UpdateUrl>
     <SupportUrl>http://roundrobinscheduler.sometechie.com/</SupportUrl>
     <TargetCulture>en-US</TargetCulture>
     <ProductName>Round Robin Scheduler</ProductName>
     <PublisherName>Some Techie</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
