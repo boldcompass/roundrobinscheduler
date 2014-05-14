@@ -32,7 +32,7 @@
     <PublisherName>Some Techie</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -235,9 +235,9 @@
       <DependentUpon>SeedingDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="mime.dat">
+    <Content Include="mime.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -253,66 +253,66 @@
     <Content Include="basketball.ico" />
     <Content Include="LICENSE.TXT" />
     <None Include="Resources\LICENSE.txt" />
-    <None Include="htdocs\images\basketball_gray_x250.png">
+    <Content Include="htdocs\images\basketball_gray_x250.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\basketball_gray_x50.png">
+    </Content>
+    <Content Include="htdocs\images\basketball_gray_x50.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\basketball_gray_x500.png">
+    </Content>
+    <Content Include="htdocs\images\basketball_gray_x500.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\basketball_light_gray_x250.png">
+    </Content>
+    <Content Include="htdocs\images\basketball_light_gray_x250.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\basketball_light_gray_x500.png">
+    </Content>
+    <Content Include="htdocs\images\basketball_light_gray_x500.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\basketball_x250.png">
+    </Content>
+    <Content Include="htdocs\images\basketball_x250.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\basketball_x500.png">
+    </Content>
+    <Content Include="htdocs\images\basketball_x500.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\images\bullet.png">
+    </Content>
+    <Content Include="htdocs\images\bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\js\3o3.schedule.js">
+    </Content>
+    <Content Include="htdocs\js\3o3.schedule.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Resources\proxywaiting.gif" />
     <None Include="Resources\confirm.png" />
-    <None Include="htdocs\js\3o3.gameEditor.js">
+    <Content Include="htdocs\js\3o3.gameEditor.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Resources\Refresh.png" />
-    <None Include="htdocs\js\mootools-more.js">
+    <Content Include="htdocs\js\mootools-more.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\css\main.css">
+    </Content>
+    <Content Include="htdocs\css\main.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\index.html">
+    </Content>
+    <Content Include="htdocs\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\js\3o3.core.js">
+    </Content>
+    <Content Include="htdocs\js\3o3.core.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\js\3o3.initializer.js">
+    </Content>
+    <Content Include="htdocs\js\3o3.initializer.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\js\3o3.skin.js">
+    </Content>
+    <Content Include="htdocs\js\3o3.skin.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\js\mootools-core.js">
+    </Content>
+    <Content Include="htdocs\js\mootools-core.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\js\Request.JSON.Retry.js">
+    </Content>
+    <Content Include="htdocs\js\Request.JSON.Retry.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="htdocs\favicon.ico">
+    </Content>
+    <Content Include="htdocs\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Resources\winner icon.png" />
     <None Include="Resources\edit score icon.png" />
     <None Include="Resources\remove.png" />
