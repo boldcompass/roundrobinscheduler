@@ -140,7 +140,13 @@ namespace SomeTechie.RoundRobinScheduler
             Controller.TeamNameChanged += new TeamNameChangedEventHandler(Controller_TeamNameChanged);
             Controller.CourtRoundsIsActiveChanged += new EventHandler(Controller_CourtRoundsIsActiveChanged);
             Controller.CourtRoundsIsConfirmedChanged += new EventHandler(Controller_CourtRoundsIsConfirmedChanged);
+            Controller.CourtRoundsIsInProgressChanged += new EventHandler(Controller_CourtRoundsIsInProgressChanged);
             courtRoundsPaintable.GotFocus += new EventHandler(courtRoundsPaintable_GotFocus);
+        }
+
+        void Controller_CourtRoundsIsInProgressChanged(object sender, EventArgs e)
+        {
+            courtRoundsPaintable.Invalidate();
         }
 
         void courtRoundsPaintable_GotFocus(object sender, EventArgs e)
@@ -290,7 +296,6 @@ namespace SomeTechie.RoundRobinScheduler
 
         private void refreshSizing()
         {
-            if (Tournament != null) courtRoundsPaintable.Height = (Tournament.CourtRounds.Count + 1) * courtRoundHeight;
             scrollingPanel.Top = headerHeight;
             scrollingPanel.Width = Width;
             courtRoundsPaintable.Width = scrollingPanel.Width;
@@ -468,8 +473,9 @@ namespace SomeTechie.RoundRobinScheduler
 
                     bool courtRoundIsActive = courtRound.IsActive;
                     bool courtRoundIsCompleted = courtRound.IsCompleted;
+                    bool courtRoundIsInProgress = courtRound.IsInProgress;
                     bool shouldShowUnconfirmedText = !courtRound.IsConfirmed;
-                    bool shouldShowScoreKeeperName = courtRoundIsActive || shouldShowUnconfirmedText;
+                    bool shouldShowScoreKeeperName = courtRoundIsActive || shouldShowUnconfirmedText || courtRoundIsInProgress;
 
                     Dictionary<ScoreKeeper, int> timesScoreKeeperInCourtRound = null;
                     if (shouldShowScoreKeeperName)
@@ -1024,6 +1030,7 @@ namespace SomeTechie.RoundRobinScheduler
 
             btnMoreRounds.Top = drawTop + btnMoreRounds.Margin.Top;
             btnMoreRounds.Left = (courtRoundsPaintable.Width - btnMoreRounds.Width) / 2;
+            courtRoundsPaintable.Height = btnMoreRounds.Bottom + btnMoreRounds.Margin.Bottom + courtRoundsPaintable.Padding.Bottom;
             refreshCheckboxSizing();
         }
 
@@ -1221,6 +1228,16 @@ namespace SomeTechie.RoundRobinScheduler
                 if (currentSelectedGame != null && !scoreEditor.Visible)
                 {
                     this.startEditingGame(currentSelectedGame);
+                    e.Handled = true;
+                }
+            }
+            else if (e.KeyChar == 'F' || e.KeyChar == 'f')
+            {
+                if (currentSelectedGame != null && !scoreEditor.Visible)
+                {
+                    currentSelectedGame.IsConfirmed = !currentSelectedGame.IsConfirmed;
+                    Controller.TriggerGameResultChanged(currentSelectedGame);
+                    e.Handled = true;
                 }
             }
         }

@@ -219,7 +219,7 @@ namespace SomeTechie.RoundRobinScheduler
 
         private void refreshSizing()
         {
-            courtRoundsPanel.Height = NumRounds * courtRoundHeight;
+            courtRoundsPaintable.Height = NumRounds * courtRoundHeight;
 
             headerTop = controlsPanel.Bottom;
 
@@ -243,7 +243,7 @@ namespace SomeTechie.RoundRobinScheduler
         private void courtRoundsPanel_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.Clip = new Region(e.ClipRectangle);
-            e.Graphics.Clear(courtRoundsPanel.BackColor);
+            e.Graphics.Clear(courtRoundsPaintable.BackColor);
             if (Tournament != null)
             {
                 int drawTop = 0;
@@ -392,11 +392,11 @@ namespace SomeTechie.RoundRobinScheduler
                         Controller.TriggerScoreKeepersAssignmentChanged();
                     }
                     //Redraw the court round
-                    courtRoundsPanel.Invalidate(
+                    courtRoundsPaintable.Invalidate(
                         new Rectangle(
                             0,
                             (int)ClickedGameRectangle.Y,
-                            courtRoundsPanel.Width,
+                            courtRoundsPaintable.Width,
                             (int)ClickedGameRectangle.Height));
                 }
             }
@@ -426,7 +426,7 @@ namespace SomeTechie.RoundRobinScheduler
 
             if (currentHoveredGamePosition != null && currentHoveredGamePosition != HoveredGamePosition)
             {
-                courtRoundsPanel.Invalidate(RectangleFToRectangle(currentHoveredGameRectangle));
+                courtRoundsPaintable.Invalidate(RectangleFToRectangle(currentHoveredGameRectangle));
             }
 
             //We figured out what game the mouse is over
@@ -436,15 +436,15 @@ namespace SomeTechie.RoundRobinScheduler
                 {
                     currentHoveredGamePosition = HoveredGamePosition;
                     currentHoveredGameRectangle = HoveredGameRectangle;
-                    courtRoundsPanel.Invalidate(RectangleFToRectangle(HoveredGameRectangle));
-                    courtRoundsPanel.Cursor = Cursors.Hand;
+                    courtRoundsPaintable.Invalidate(RectangleFToRectangle(HoveredGameRectangle));
+                    courtRoundsPaintable.Cursor = Cursors.Hand;
                 }
             }
             else
             {
                 currentHoveredGamePosition = null;
                 currentHoveredGameRectangle = new RectangleF();
-                courtRoundsPanel.Cursor = Cursors.Default;
+                courtRoundsPaintable.Cursor = Cursors.Default;
             }
         }
         protected static Rectangle RectangleFToRectangle(RectangleF r)
@@ -456,7 +456,7 @@ namespace SomeTechie.RoundRobinScheduler
         {
             if (currentHoveredGamePosition != null)
             {
-                courtRoundsPanel.Invalidate(RectangleFToRectangle(currentHoveredGameRectangle));
+                courtRoundsPaintable.Invalidate(RectangleFToRectangle(currentHoveredGameRectangle));
                 currentHoveredGamePosition = null;
                 currentHoveredGameRectangle = new RectangleF();
             }
@@ -466,7 +466,7 @@ namespace SomeTechie.RoundRobinScheduler
         {
             if (currentHoveredGamePosition != null)
             {
-                courtRoundsPanel.Invalidate(RectangleFToRectangle(currentHoveredGameRectangle));
+                courtRoundsPaintable.Invalidate(RectangleFToRectangle(currentHoveredGameRectangle));
                 currentHoveredGamePosition = null;
                 currentHoveredGameRectangle = new RectangleF();
             }

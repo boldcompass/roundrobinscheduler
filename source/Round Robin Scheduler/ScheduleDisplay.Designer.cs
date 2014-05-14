@@ -66,6 +66,7 @@
             this.courtRoundsPaintable.Location = new System.Drawing.Point(0, 0);
             this.courtRoundsPaintable.Margin = new System.Windows.Forms.Padding(0);
             this.courtRoundsPaintable.Name = "courtRoundsPaintable";
+            this.courtRoundsPaintable.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
             this.courtRoundsPaintable.Size = new System.Drawing.Size(505, 123);
             this.courtRoundsPaintable.TabIndex = 0;
             this.courtRoundsPaintable.Paint += new System.Windows.Forms.PaintEventHandler(this.courtRoundsPanel_Paint);
@@ -82,7 +83,7 @@
             this.btnMoreRounds.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnMoreRounds.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMoreRounds.Location = new System.Drawing.Point(304, 88);
-            this.btnMoreRounds.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.btnMoreRounds.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.btnMoreRounds.Name = "btnMoreRounds";
             this.btnMoreRounds.Size = new System.Drawing.Size(102, 23);
             this.btnMoreRounds.TabIndex = 1;

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.scrollingPanel = new System.Windows.Forms.Panel();
-            this.courtRoundsPanel = new System.Windows.Forms.Panel();
+            this.courtRoundsPaintable = new Paintable();
             this.controlsPanel = new System.Windows.Forms.Panel();
             this.numRoundsUpDwn = new System.Windows.Forms.NumericUpDown();
             this.assignScoreKeeperLbl = new System.Windows.Forms.Label();
@@ -43,7 +43,7 @@
             // scrollingPanel
             // 
             this.scrollingPanel.AutoScroll = true;
-            this.scrollingPanel.Controls.Add(this.courtRoundsPanel);
+            this.scrollingPanel.Controls.Add(this.courtRoundsPaintable);
             this.scrollingPanel.Location = new System.Drawing.Point(0, 33);
             this.scrollingPanel.Margin = new System.Windows.Forms.Padding(0);
             this.scrollingPanel.Name = "scrollingPanel";
@@ -52,18 +52,18 @@
             // 
             // courtRoundsPanel
             // 
-            this.courtRoundsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.courtRoundsPaintable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.courtRoundsPanel.Location = new System.Drawing.Point(0, 0);
-            this.courtRoundsPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.courtRoundsPanel.Name = "courtRoundsPanel";
-            this.courtRoundsPanel.Size = new System.Drawing.Size(371, 123);
-            this.courtRoundsPanel.TabIndex = 0;
-            this.courtRoundsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.courtRoundsPanel_Paint);
-            this.courtRoundsPanel.Leave += new System.EventHandler(this.courtRoundsPanel_Leave);
-            this.courtRoundsPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.courtRoundsPanel_MouseClick);
-            this.courtRoundsPanel.MouseLeave += new System.EventHandler(this.courtRoundsPanel_MouseLeave);
-            this.courtRoundsPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.courtRoundsPanel_MouseMove);
+            this.courtRoundsPaintable.Location = new System.Drawing.Point(0, 0);
+            this.courtRoundsPaintable.Margin = new System.Windows.Forms.Padding(0);
+            this.courtRoundsPaintable.Name = "courtRoundsPanel";
+            this.courtRoundsPaintable.Size = new System.Drawing.Size(371, 123);
+            this.courtRoundsPaintable.TabIndex = 0;
+            this.courtRoundsPaintable.Paint += new System.Windows.Forms.PaintEventHandler(this.courtRoundsPanel_Paint);
+            this.courtRoundsPaintable.Leave += new System.EventHandler(this.courtRoundsPanel_Leave);
+            this.courtRoundsPaintable.MouseClick += new System.Windows.Forms.MouseEventHandler(this.courtRoundsPanel_MouseClick);
+            this.courtRoundsPaintable.MouseLeave += new System.EventHandler(this.courtRoundsPanel_MouseLeave);
+            this.courtRoundsPaintable.MouseMove += new System.Windows.Forms.MouseEventHandler(this.courtRoundsPanel_MouseMove);
             // 
             // controlsPanel
             // 
@@ -160,7 +160,7 @@
         #endregion
 
         private System.Windows.Forms.Panel scrollingPanel;
-        private System.Windows.Forms.Panel courtRoundsPanel;
+        private Paintable courtRoundsPaintable;
         private System.Windows.Forms.Panel controlsPanel;
         private System.Windows.Forms.NumericUpDown numRoundsUpDwn;
         private System.Windows.Forms.Label assignScoreKeeperLbl;

@@ -132,6 +132,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
         {
             if (CourtRoundsIsActiveHasChanged()) TriggerEvent(CourtRoundsIsActiveChanged, this, new EventArgs());
             if (CourtRoundsIsConfirmedHasChanged()) TriggerEvent(CourtRoundsIsConfirmedChanged, this, new EventArgs());
+            if (CourtRoundsIsInProgressHasChanged()) TriggerEvent(CourtRoundsIsInProgressChanged, this, new EventArgs());
         }
 
         void Controller_ScoreKeepersAssignmentChanged(object sender, EventArgs e)
@@ -161,6 +162,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             if (GameResultChanged != null) TriggerEvent(GameResultChanged, this, new GameResultChangedEventArgs(game));
             if (CourtRoundsIsActiveHasChanged()) TriggerEvent(CourtRoundsIsActiveChanged, this, new EventArgs());
             if (CourtRoundsIsConfirmedHasChanged()) TriggerEvent(CourtRoundsIsConfirmedChanged, this, new EventArgs());
+            if (CourtRoundsIsInProgressHasChanged()) TriggerEvent(CourtRoundsIsInProgressChanged, this, new EventArgs());
         }
 
         public event EventHandler CourtRoundsIsActiveChanged;
@@ -189,6 +191,39 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                     if (OldCourtRoundsIsActive[courtRound] != courtRound.IsActive)
                     {
                         OldCourtRoundsIsActive[courtRound] = courtRound.IsActive;
+                        hasChanged = true;
+                    }
+                }
+            }
+            return hasChanged;
+        }
+
+        public event EventHandler CourtRoundsIsInProgressChanged;
+        protected Dictionary<CourtRound, bool> OldCourtRoundsIsInProgress = new Dictionary<CourtRound, bool>();
+        protected bool CourtRoundsIsInProgressHasChanged()
+        {
+            List<CourtRound> toRemove = new List<CourtRound>();
+            foreach (KeyValuePair<CourtRound, bool> pair in OldCourtRoundsIsInProgress)
+            {
+                if (!Tournament.CourtRounds.Contains(pair.Key)) toRemove.Add(pair.Key);
+            }
+            foreach (CourtRound courtRound in toRemove)
+            {
+                OldCourtRoundsIsInProgress.Remove(courtRound);
+            }
+            bool hasChanged = false;
+            foreach (CourtRound courtRound in Tournament.CourtRounds)
+            {
+                if (!OldCourtRoundsIsInProgress.ContainsKey(courtRound))
+                {
+                    OldCourtRoundsIsInProgress.Add(courtRound, courtRound.IsInProgress);
+                    hasChanged = true;
+                }
+                else
+                {
+                    if (OldCourtRoundsIsInProgress[courtRound] != courtRound.IsInProgress)
+                    {
+                        OldCourtRoundsIsInProgress[courtRound] = courtRound.IsInProgress;
                         hasChanged = true;
                     }
                 }
