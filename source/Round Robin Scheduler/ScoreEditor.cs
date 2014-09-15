@@ -13,6 +13,7 @@ namespace SomeTechie.RoundRobinScheduler
     public partial class ScoreEditor : UserControl
     {
         public event ScoreEditorClosedEventHandler scoreEditorClosed;
+        public event ScoreEditorClosingEventHandler scoreEditorClosing;
 
         protected Controller Controller = Controller.GetController();
 
@@ -117,6 +118,8 @@ namespace SomeTechie.RoundRobinScheduler
 
         public void endEdit(bool shouldSave = true)
         {
+            DialogResult result = shouldSave ? DialogResult.OK : DialogResult.Cancel;
+            if (scoreEditorClosing != null) scoreEditorClosing(this, new ScoreEditorClosingEventArgs(result));
             this.Hide();
             if (shouldSave)
             {
@@ -137,7 +140,7 @@ namespace SomeTechie.RoundRobinScheduler
 
                 Controller.TriggerGameResultChanged(Game);
             }
-            if (scoreEditorClosed != null) scoreEditorClosed(this, new ScoreEditorClosedEventArgs(shouldSave ? DialogResult.OK : DialogResult.Cancel));
+            if (scoreEditorClosed != null) scoreEditorClosed(this, new ScoreEditorClosedEventArgs(result));
         }
 
         private void okBtn_Click(object sender, EventArgs e)
@@ -192,6 +195,23 @@ namespace SomeTechie.RoundRobinScheduler
             }
         }
         public ScoreEditorClosedEventArgs(DialogResult result)
+        {
+            _result = result;
+        }
+    }
+
+    public delegate void ScoreEditorClosingEventHandler(object sender, ScoreEditorClosingEventArgs e);
+    public class ScoreEditorClosingEventArgs : EventArgs
+    {
+        protected DialogResult _result;
+        public DialogResult Result
+        {
+            get
+            {
+                return _result;
+            }
+        }
+        public ScoreEditorClosingEventArgs(DialogResult result)
         {
             _result = result;
         }

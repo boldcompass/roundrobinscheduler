@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -575,11 +575,6 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                     }
                     TeamsNumberOfHomeGames[ClonedGame.Team1]++;
 
-#if DEBUG
-                    if (ClonedGame == null)
-                        System.Diagnostics.Debugger.Break();
-#endif
-
                     ClonedGame.CourtRoundNum = CourtRoundNumber + 1;
                     ClonedGame.RobinRoundNum = RobinRoundNumber + 1;
                     ClonedGame.ScheduleVersion = _scheduleVersion;
@@ -605,29 +600,37 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                 List<Game> CourtRoundGamesSchedule = new List<Game>();
                 foreach (KeyValuePair<int, List<Game>> CourtRoundGamesForDivision in CourtRoundGamesByDivision)
                 {
+					// Keep track of the games we have left to schedule
                     List<Game> GamesToSchedule = new List<Game>(CourtRoundGamesForDivision.Value);
-                    while (GamesToSchedule.Count > 0)
+					
+					// Start scheduling games
+					while (GamesToSchedule.Count > 0)
                     {
                         int CourtId = CourtRoundGamesSchedule.Count;
                         int CourtNumber = CourtId + 1;
                         Game PickedGame = null;
                         int pickedGameTeamsNumberSum = 0;
                         int lowestTimesOnCourtSum = int.MaxValue;
+						
                         if (GamesToSchedule.Count == 0)
                         {
                             PickedGame = GamesToSchedule[0];
                         }
                         else
                         {
+							// Find the game with the teams that have been on this court the least
                             foreach (Game game in GamesToSchedule)
                             {
                                 int timesOnCourtSum = 0;
                                 int teamsNumberSum = 0;
+								
+								// Find out how many times each of the two teams has been on each court
                                 foreach (Team team in game.Teams)
                                 {
                                     timesOnCourtSum += timesOnCourtByTeam[team.NumId][CourtId];
                                     teamsNumberSum+=team.Number;
                                 }
+								
                                 if (timesOnCourtSum < lowestTimesOnCourtSum || (timesOnCourtSum == lowestTimesOnCourtSum && teamsNumberSum < pickedGameTeamsNumberSum))
                                 {
                                     PickedGame = game;
@@ -636,10 +639,17 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                                 }
                             }
                         }
+						
+						// Add this game to the list of scheduled games
                         CourtRoundGamesSchedule.Add(PickedGame);
+						
+						// Remove this game from the list of games left to schedule
                         GamesToSchedule.Remove(PickedGame);
+						
                         PickedGame.CourtNumber = CourtNumber;
-                        foreach (Team team in PickedGame.Teams)
+                        
+						// Keep track of which court the teams were placed on
+						foreach (Team team in PickedGame.Teams)
                         {
                             timesOnCourtByTeam[team.NumId][CourtId] += 1;
                         }

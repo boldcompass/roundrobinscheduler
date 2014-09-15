@@ -82,7 +82,7 @@
             // numRoundsUpDwn
             // 
             this.numRoundsUpDwn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.numRoundsUpDwn.Location = new System.Drawing.Point(133, 0);
+            this.numRoundsUpDwn.Location = new System.Drawing.Point(101, 0);
             this.numRoundsUpDwn.Margin = new System.Windows.Forms.Padding(0, 4, 0, 4);
             this.numRoundsUpDwn.Maximum = new decimal(new int[] {
             1410065407,
@@ -95,7 +95,7 @@
             0,
             0});
             this.numRoundsUpDwn.Name = "numRoundsUpDwn";
-            this.numRoundsUpDwn.Size = new System.Drawing.Size(73, 22);
+            this.numRoundsUpDwn.Size = new System.Drawing.Size(73, 20);
             this.numRoundsUpDwn.TabIndex = 1;
             this.numRoundsUpDwn.Value = new decimal(new int[] {
             1,
@@ -108,11 +108,11 @@
             // 
             this.assignScoreKeeperLbl.AutoSize = true;
             this.assignScoreKeeperLbl.Dock = System.Windows.Forms.DockStyle.Right;
-            this.assignScoreKeeperLbl.Location = new System.Drawing.Point(470, 0);
+            this.assignScoreKeeperLbl.Location = new System.Drawing.Point(506, 0);
             this.assignScoreKeeperLbl.Margin = new System.Windows.Forms.Padding(0);
             this.assignScoreKeeperLbl.Name = "assignScoreKeeperLbl";
             this.assignScoreKeeperLbl.Padding = new System.Windows.Forms.Padding(1);
-            this.assignScoreKeeperLbl.Size = new System.Drawing.Size(147, 19);
+            this.assignScoreKeeperLbl.Size = new System.Drawing.Size(111, 15);
             this.assignScoreKeeperLbl.TabIndex = 3;
             this.assignScoreKeeperLbl.Text = "Assign Score Keeper:";
             // 
@@ -124,7 +124,7 @@
             this.assignScoreKeeperCmb.Location = new System.Drawing.Point(617, 0);
             this.assignScoreKeeperCmb.Margin = new System.Windows.Forms.Padding(4);
             this.assignScoreKeeperCmb.Name = "assignScoreKeeperCmb";
-            this.assignScoreKeeperCmb.Size = new System.Drawing.Size(308, 24);
+            this.assignScoreKeeperCmb.Size = new System.Drawing.Size(308, 21);
             this.assignScoreKeeperCmb.TabIndex = 2;
             // 
             // numRoundsLbl
@@ -135,7 +135,7 @@
             this.numRoundsLbl.Margin = new System.Windows.Forms.Padding(0);
             this.numRoundsLbl.Name = "numRoundsLbl";
             this.numRoundsLbl.Padding = new System.Windows.Forms.Padding(1);
-            this.numRoundsLbl.Size = new System.Drawing.Size(133, 19);
+            this.numRoundsLbl.Size = new System.Drawing.Size(101, 15);
             this.numRoundsLbl.TabIndex = 0;
             this.numRoundsLbl.Text = "Number of Rounds:";
             // 

@@ -20,6 +20,7 @@ namespace SomeTechie.RoundRobinScheduler
         protected int unconfirmedTextHeight = 15;
         protected int courtColumnWidth;
         protected int drawWidth;
+        protected Point tempScrollPosition;
         protected Padding teamIdMargin = new Padding(0, 0, 5, 0);
         protected Padding editScoreIconMargin = new Padding(5);
         protected Padding winnerIconMargin = new Padding(5);
@@ -151,7 +152,7 @@ namespace SomeTechie.RoundRobinScheduler
 
         void courtRoundsPaintable_GotFocus(object sender, EventArgs e)
         {
-            if (this.currentHoveredGame == null)
+            if (this.currentSelectedGame == null)
             {
                 this.selectGameByIndex((Control.ModifierKeys & Keys.Shift) == Keys.Shift ? Tournament.Games.Count - 1 : 0);
             }
@@ -312,8 +313,6 @@ namespace SomeTechie.RoundRobinScheduler
             courtColumnWidth = (int)Math.Floor((double)((drawWidth - defaultRoundColumnWidth) / numCourts));
             roundColumnWidth = drawWidth - (courtColumnWidth * numCourts);
 
-
-
             refreshCheckboxSizing();
         }
 
@@ -444,6 +443,9 @@ namespace SomeTechie.RoundRobinScheduler
 
         private void courtRoundsPanel_Paint(object sender, PaintEventArgs e)
         {
+            // Get ready to draw
+            scrollingPanel.SuspendLayout(); 
+
             //Begin
             Graphics graphics = e.Graphics;
             
@@ -606,7 +608,7 @@ namespace SomeTechie.RoundRobinScheduler
                                 {
                                     TeamGameResult teamGameResult = game.TeamGameResults[team.Id];
 
-                                    bool showGameStats = courtRoundIsActive || courtRoundIsCompleted || game.IsInProgress;
+                                    bool showGameStats = courtRoundIsActive || courtRoundIsCompleted || game.IsInProgress || game.IsCompleted;
                                     bool shouldShowScore = showGameStats;
                                     shouldShowScoreForTeams[team] = shouldShowScore;
                                     bool shouldShowFouls = (showGameStats) && teamGameResult.NumFouls > 0;
@@ -1032,6 +1034,8 @@ namespace SomeTechie.RoundRobinScheduler
             btnMoreRounds.Left = (courtRoundsPaintable.Width - btnMoreRounds.Width) / 2;
             courtRoundsPaintable.Height = btnMoreRounds.Bottom + btnMoreRounds.Margin.Bottom + courtRoundsPaintable.Padding.Bottom;
             refreshCheckboxSizing();
+
+            scrollingPanel.ResumeLayout();
         }
 
         private void ScheduleDisplay_Load(object sender, EventArgs e)
@@ -1072,15 +1076,13 @@ namespace SomeTechie.RoundRobinScheduler
         private void startEditingGame(Game game, RectangleF gameRectangle)
         {
             //Calculate position
-            int scoreEditorTop = scrollingPanel.Top + courtRoundsPaintable.Top;
-            scoreEditorTop -= scrollingPanel.AutoScrollOffset.Y;
-            scoreEditorTop += (int)(gameRectangle.Top + gameRectangle.Height / 2) - scoreEditor.Height / 2;
-            scoreEditorTop = Math.Min(Height - scoreEditor.Height, scoreEditorTop);
+            int scoreEditorTop = courtRoundsPaintable.Top;
+            scoreEditorTop += (int)(gameRectangle.Top + (gameRectangle.Height - scoreEditor.Height) / 2);
+            scoreEditorTop = Math.Min(courtRoundsPaintable.Height - scoreEditor.Height, scoreEditorTop);
             scoreEditorTop = Math.Max(0, scoreEditorTop);
 
-            int scoreEditorLeft = scrollingPanel.Left + courtRoundsPaintable.Left;
-            scoreEditorLeft -= scrollingPanel.AutoScrollOffset.X;
-            scoreEditorLeft += (int)(gameRectangle.Left + gameRectangle.Width / 2) - scoreEditor.Width / 2;
+            int scoreEditorLeft = courtRoundsPaintable.Left;
+            scoreEditorLeft += (int)(gameRectangle.Left + (gameRectangle.Width - scoreEditor.Width) / 2);
             scoreEditorLeft = Math.Min(drawWidth - scoreEditor.Width, scoreEditorLeft);
             scoreEditorLeft = Math.Max(0, scoreEditorLeft);
 
@@ -1088,8 +1090,9 @@ namespace SomeTechie.RoundRobinScheduler
             //Set position
             scoreEditor.Top = scoreEditorTop;
             scoreEditor.Left = scoreEditorLeft;
-
             scoreEditor.beginEdit(game);
+
+            scrollingPanel.ScrollControlIntoView(scoreEditor);
         }
 
         private void courtRoundsPanel_MouseMove(object sender, MouseEventArgs e)
@@ -1219,6 +1222,18 @@ namespace SomeTechie.RoundRobinScheduler
                 this.currentSelectedGameRectangle = new RectangleF();
             }
             courtRoundsPaintable.Invalidate(RectangleFToRectangle(currentSelectedGameRectangle));
+
+            // Make sure the game is visible.
+            int scrollY = Math.Abs(scrollingPanel.AutoScrollPosition.Y);
+            if (scrollY > currentSelectedGameRectangle.Top)
+            {
+                scrollY = (int)currentSelectedGameRectangle.Top;
+            }
+            else if (scrollY < currentSelectedGameRectangle.Bottom - scrollingPanel.Height)
+            {
+                scrollY = (int)currentSelectedGameRectangle.Bottom - scrollingPanel.Height;
+            }
+            scrollingPanel.AutoScrollPosition = new Point(Math.Abs(scrollingPanel.AutoScrollPosition.X), scrollY);
         }
 
         private void courtRoundsPaintable_KeyPress(object sender, KeyPressEventArgs e)
@@ -1248,6 +1263,7 @@ namespace SomeTechie.RoundRobinScheduler
             {
                 this.selectGameByIndex(Tournament.Games.IndexOf(scoreEditor.Game));
             }
+            scrollingPanel.AutoScrollPosition = new Point(Math.Abs(scrollingPanel.AutoScrollPosition.X), Math.Abs(tempScrollPosition.Y));
         }
 
         private void btnMoreRounds_Click(object sender, EventArgs e)
@@ -1261,6 +1277,11 @@ namespace SomeTechie.RoundRobinScheduler
                 refreshSizing();
                 Refresh();
             }
+        }
+
+        private void scoreEditor_scoreEditorClosing(object sender, ScoreEditorClosingEventArgs e)
+        {
+            tempScrollPosition = scrollingPanel.AutoScrollPosition;
         }
     }
 }
