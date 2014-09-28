@@ -164,6 +164,28 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                 _teamGameResults = value;
             }
         }
+
+        [XmlIgnore()]
+        public Nullable<bool> IsLogicalResult
+        {
+            get
+            {
+                if (WinningTeam == null) return null;
+
+                int winningScore = TeamGameResults[WinningTeam.Id].NumPoints;
+
+                foreach(KeyValuePair<string,TeamGameResult> result in TeamGameResults){
+                    if (result.Value.NumPoints > winningScore)
+                    {
+                        // The winning team didn't get the most points
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
         [XmlArray("TeamGameResults"), XmlArrayItem("TeamGameResult")]
         public SerializableKeyValuePair<string, TeamGameResult>[] XmlTeamGameResults
         {

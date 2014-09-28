@@ -47,8 +47,10 @@ namespace SomeTechie.RoundRobinScheduler
         protected List<Pen> robinRoundSeparatorOutlinePens;
         protected Color oddGameNormalColor;
         protected Color evenGameNormalColor;
+        protected Color illogicalGameNormalColor;// A game in which the loser scored more points than the winner
         protected Color oddGameHoverColor;
         protected Color evenGameHoverColor;
+        protected Color illogicalGameHoverColor;// A game in which the loser scored more points than the winner
 
         //Fonts
         protected Font headerFont;
@@ -244,8 +246,10 @@ namespace SomeTechie.RoundRobinScheduler
             //Colors
             oddGameNormalColor = Color.FromArgb(255, 240, 215);
             evenGameNormalColor = Color.White;
+            illogicalGameNormalColor = Color.FromArgb(252, 173, 149);
             oddGameHoverColor = Color.FromArgb(255, 213, 166);
             evenGameHoverColor = Color.FromArgb(255, 219, 178);
+            illogicalGameHoverColor = Color.FromArgb(250, 148, 117);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -563,13 +567,21 @@ namespace SomeTechie.RoundRobinScheduler
                             bool isHoveredGame = game == currentHoveredGame;
                             System.Diagnostics.Trace.WriteLine(game.ToString());
                             Color gameFillColor;
-                            if (isHoveredGame)
+                            if (game.IsLogicalResult != false)
                             {
-                                gameFillColor = game.RobinRoundNum % 2 != 0 ? oddGameHoverColor : evenGameHoverColor;
+                                if (isHoveredGame)
+                                {
+                                    gameFillColor = game.RobinRoundNum % 2 != 0 ? oddGameHoverColor : evenGameHoverColor;
+                                }
+                                else
+                                {
+                                    gameFillColor = game.RobinRoundNum % 2 != 0 ? oddGameNormalColor : evenGameNormalColor;
+                                }
                             }
                             else
                             {
-                                gameFillColor = game.RobinRoundNum % 2 != 0 ? oddGameNormalColor : evenGameNormalColor;
+                                // A game in which the loser scored more points than the winner
+                                gameFillColor = isHoveredGame ? illogicalGameHoverColor : illogicalGameNormalColor;
                             }
 
                             graphics.FillRectangle(new SolidBrush(gameFillColor), gameRectangle);
