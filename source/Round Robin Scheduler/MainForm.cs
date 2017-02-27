@@ -1271,6 +1271,21 @@ namespace SomeTechie.RoundRobinScheduler
                 tabControl.SelectTab(tabPageSchedule);
             }
         }
+
+        private void enableScheduleEditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (enableScheduleEditToolStripMenuItem.Checked)
+            {
+                enableScheduleEditToolStripMenuItem.Checked = false;
+                scheduleDisplay.EnableEditing = false;
+            }
+            else
+            {
+                enableScheduleEditToolStripMenuItem.Checked = true;
+                scheduleDisplay.EnableEditing = true;
+
+            }
+        }
         //End Proxy Interface
     }
 }

@@ -119,6 +119,24 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             return TeamDatas;
         }
 
+        public RoundRobinTeamData getTeamData(Team team){
+            if(team.Division != this)
+            {
+                return null;
+            }
+
+            if (team.Number > _roundRobinDatas.Length)
+            {
+                return null;
+            }
+
+            if (team == _roundRobinDatas[team.Number-1].Team)
+            {
+                return _roundRobinDatas[team.Number - 1];
+            }
+
+            return null;
+        }
 
     }
 }

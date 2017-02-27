@@ -76,6 +76,15 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
         }
 
+        [XmlIgnore()]
+        public RoundRobinTeamData RoundRobinData
+        {
+            get
+            {
+                return Division.getTeamData(this);
+            }
+        }
+
         public Team(string name, int number)
         {
             _name = name;
@@ -88,7 +97,14 @@ namespace SomeTechie.RoundRobinScheduleGenerator
 
         public override string ToString()
         {
-            return Name;
+            if (Id == Name)
+            {
+                return Name;
+            }
+            else
+            {
+               return "(" + Id + ") " + Name;
+            }
         }
     }
 }

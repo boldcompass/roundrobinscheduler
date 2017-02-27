@@ -50,6 +50,8 @@ namespace SomeTechie.RoundRobinScheduler
         protected Color illogicalGameNormalColor;// A game in which the loser scored more points than the winner
         protected Color oddGameHoverColor;
         protected Color evenGameHoverColor;
+        protected Color errorGameColor;
+        protected Color errorGameHoverColor;
         protected Color illogicalGameHoverColor;// A game in which the loser scored more points than the winner
 
         //Fonts
@@ -124,6 +126,18 @@ namespace SomeTechie.RoundRobinScheduler
             {
                 base.BackColor = value;
                 calculateColors();
+            }
+        }
+
+        public bool EnableEditing
+        {
+            get
+            {
+                return scoreEditor.EnableChangeTeams;
+            }
+            set
+            {
+                scoreEditor.EnableChangeTeams = value;
             }
         }
 
@@ -250,6 +264,8 @@ namespace SomeTechie.RoundRobinScheduler
             oddGameHoverColor = Color.FromArgb(255, 213, 166);
             evenGameHoverColor = Color.FromArgb(255, 219, 178);
             illogicalGameHoverColor = Color.FromArgb(250, 148, 117);
+            errorGameColor = Color.LightPink;
+            errorGameHoverColor = Color.FromArgb(255, 212, 218);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -517,6 +533,26 @@ namespace SomeTechie.RoundRobinScheduler
                     graphics.DrawLine(headerShadowPen, new PointF(roundNumberRect.Left, roundNumberRect.Bottom - 1), new PointF(roundNumberRect.Right - 1, roundNumberRect.Bottom - 1));
                     graphics.DrawLine(headerShadowPen, new PointF(roundNumberRect.Right - 1, roundNumberRect.Top), new PointF(roundNumberRect.Right - 1, roundNumberRect.Bottom - 1));
                     drawLeft += roundColumnWidth;
+
+                    // Check for error games
+                    HashSet<Game> errorGames = new HashSet<Game>();
+                    for (int i = 0; i < courtRound.Games.Count; i++)
+                    {
+                        for (int j = i + 1; j < courtRound.Games.Count; j++)
+                        {
+                            foreach (Team teamA in courtRound.Games[i].Teams)
+                            {
+                                foreach (Team teamB in courtRound.Games[j].Teams)
+                                {
+                                    if (teamA == teamB)
+                                    {
+                                        errorGames.Add(courtRound.Games[i]);
+                                        errorGames.Add(courtRound.Games[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     #endregion
 
                     #region Draw games
@@ -532,6 +568,8 @@ namespace SomeTechie.RoundRobinScheduler
                                     drawTop,
                                     courtColumnWidth,
                                     roundHeight);
+                        bool isErrorGame = errorGames.Contains(game);
+
                         //Check if this game should be redrawn
                         bool shouldDraw = true;
                         if (oldGameRectangles != null && oldGameRectangles.GetLength(0) >= game.CourtRoundNum && oldGameRectangles.GetLength(1) >= game.CourtNumber)
@@ -559,6 +597,12 @@ namespace SomeTechie.RoundRobinScheduler
                             }
                         }
 
+
+                        if (isErrorGame)
+                        {
+                            shouldDraw = true;
+                        }
+
                         gameRectangles[game.CourtRoundNum - 1, game.CourtNumber - 1] = gameRectangle;
                         gameRectanglesByGame.Add(game, gameRectangle);
                         if (shouldDraw)
@@ -567,7 +611,12 @@ namespace SomeTechie.RoundRobinScheduler
                             bool isHoveredGame = game == currentHoveredGame;
                             System.Diagnostics.Trace.WriteLine(game.ToString());
                             Color gameFillColor;
-                            if (game.IsLogicalResult != false)
+                            if (isErrorGame)
+                            {
+                                // A game where the same team is playing in two different games in the same court round
+                                gameFillColor = isHoveredGame ? errorGameHoverColor : errorGameColor;
+                            }
+                            else if (game.IsLogicalResult != false)
                             {
                                 if (isHoveredGame)
                                 {
