@@ -904,5 +904,14 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
             return null;
         }
+
+        public void incrementScheduleVersion()
+        {
+            _scheduleVersion++;
+            foreach (Game game in Games)
+            {
+                game.ScheduleVersion++;
+            }
+        }
     }
 }

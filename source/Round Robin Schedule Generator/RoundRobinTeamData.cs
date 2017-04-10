@@ -225,7 +225,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
         public void addPlayedGame(Game game)
         {
             _playedGames.Add(game);
-            if (game.ScheduleVersion == _currentScheduleVersion)
+            if (game.ScheduleVersion == _currentScheduleVersion && game.Enabled)
             {
                 _currentSchedulePlayedGames.Add(game);
             }

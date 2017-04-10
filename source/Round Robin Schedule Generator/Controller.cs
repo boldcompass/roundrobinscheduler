@@ -27,9 +27,12 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
             set
             {
-                _numCourts = value;
-                if (_divisions != null) Tournament = new Tournament(_divisions, _numCourts);
-                if (NumCourtsChanged != null) TriggerEvent(NumCourtsChanged,this, new EventArgs());
+                if (_numCourts != value)
+                {
+                    _numCourts = value;
+                    if (Tournament != null) Tournament = new Tournament(Tournament.Divisions, _numCourts);
+                    if (NumCourtsChanged != null) TriggerEvent(NumCourtsChanged, this, new EventArgs());
+                }
             }
         }
 
@@ -105,18 +108,16 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
         }
 
-        protected List<Division> _divisions = null;
         public Division[] Divisions
         {
             get
             {
-                if (_divisions != null) return _divisions.ToArray();
+                if (Tournament != null && Tournament.Divisions != null) return Tournament.Divisions.ToArray();
                 else return null;
             }
             set
             {
-                _divisions = new List<Division>(value);
-                Tournament = new Tournament(_divisions, NumCourts);
+                Tournament = new Tournament(new List<Division>(value), NumCourts);
             }
         }
 

@@ -167,72 +167,78 @@ namespace SomeTechie.RoundRobinScheduler
                                 drawTop,
                                 courtColumnWidth,
                                 courtRoundHeight);
-                    Color gameFillColor = game.RobinRoundNum % 2 != 0 ? Color.FromArgb(255, 240, 215) : Color.White;
-                    e.Graphics.FillRectangle(new SolidBrush(gameFillColor), gameRectangle);
-                    int gamePadding = 2;
-                    int gameWidth = courtColumnWidth - gamePadding * 2;
-                    int gameHeight = courtRoundHeight - gamePadding * 2;
 
-                    int teamDrawTop = drawTop + gamePadding;
-                    int teamDrawLeft = drawLeft + gamePadding;
-                    int teamDrawHeight = gameHeight / game.NumTeams;
-                    foreach (Team team in game.Teams)
+                    if (game.Enabled)
                     {
-                        if (team != null)
+                        Color gameFillColor = game.RobinRoundNum % 2 != 0 ? Color.FromArgb(255, 240, 215) : Color.White;
+                        e.Graphics.FillRectangle(new SolidBrush(gameFillColor), gameRectangle);
+
+                        int gamePadding = 2;
+                        int gameWidth = courtColumnWidth - gamePadding * 2;
+                        int gameHeight = courtRoundHeight - gamePadding * 2;
+
+                        int teamDrawTop = drawTop + gamePadding;
+                        int teamDrawLeft = drawLeft + gamePadding;
+                        int teamDrawHeight = gameHeight / game.NumTeams;
+                        foreach (Team team in game.Teams)
                         {
-                            if (team.Name != team.Id)
+                            if (team != null)
                             {
-                                //Team id
-                                StringFormat teamIdStringFormat = new StringFormat();
-                                teamIdStringFormat.Alignment = StringAlignment.Near;
-                                teamIdStringFormat.LineAlignment = StringAlignment.Center;
+                                if (team.Name != team.Id)
+                                {
+                                    //Team id
+                                    StringFormat teamIdStringFormat = new StringFormat();
+                                    teamIdStringFormat.Alignment = StringAlignment.Near;
+                                    teamIdStringFormat.LineAlignment = StringAlignment.Center;
 
-                                Font teamIdFont = new Font(Font, FontStyle.Bold);
-                                RectangleF teamIdRect =
-                                    new RectangleF(
-                                        drawLeft + 2,
-                                        teamDrawTop,
-                                        e.Graphics.MeasureString(team.Id, teamIdFont).Width,
-                                        teamDrawHeight);
-                                e.Graphics.DrawString(team.Id + " ", teamIdFont, textBrush, teamIdRect, teamIdStringFormat);
+                                    Font teamIdFont = new Font(Font, FontStyle.Bold);
+                                    RectangleF teamIdRect =
+                                        new RectangleF(
+                                            drawLeft + 2,
+                                            teamDrawTop,
+                                            e.Graphics.MeasureString(team.Id, teamIdFont).Width,
+                                            teamDrawHeight);
+                                    e.Graphics.DrawString(team.Id + " ", teamIdFont, textBrush, teamIdRect, teamIdStringFormat);
 
-                                //Team name
-                                StringFormat teamNameStringFormat = new StringFormat();
-                                teamNameStringFormat.Alignment = StringAlignment.Near;
-                                teamNameStringFormat.LineAlignment = StringAlignment.Center;
-                                teamNameStringFormat.FormatFlags = StringFormatFlags.NoWrap;
-                                teamNameStringFormat.Trimming = StringTrimming.EllipsisCharacter;
+                                    //Team name
+                                    StringFormat teamNameStringFormat = new StringFormat();
+                                    teamNameStringFormat.Alignment = StringAlignment.Near;
+                                    teamNameStringFormat.LineAlignment = StringAlignment.Center;
+                                    teamNameStringFormat.FormatFlags = StringFormatFlags.NoWrap;
+                                    teamNameStringFormat.Trimming = StringTrimming.EllipsisCharacter;
 
-                                Font teamNameFont = new Font(Font, FontStyle.Regular);
-                                RectangleF teamNameRect =
-                                    new RectangleF(
-                                        teamIdRect.Right,
-                                        teamDrawTop,
-                                        gameWidth - teamIdRect.Width,
-                                        teamDrawHeight);
-                                e.Graphics.DrawString(team.Name, teamNameFont, textBrush, teamNameRect, teamNameStringFormat);
+                                    Font teamNameFont = new Font(Font, FontStyle.Regular);
+                                    RectangleF teamNameRect =
+                                        new RectangleF(
+                                            teamIdRect.Right,
+                                            teamDrawTop,
+                                            gameWidth - teamIdRect.Width,
+                                            teamDrawHeight);
+                                    e.Graphics.DrawString(team.Name, teamNameFont, textBrush, teamNameRect, teamNameStringFormat);
+                                }
+                                else
+                                {
+                                    //Team id
+                                    StringFormat teamIdStringFormat = new StringFormat();
+                                    teamIdStringFormat.Alignment = StringAlignment.Near;
+                                    teamIdStringFormat.LineAlignment = StringAlignment.Center;
+
+                                    Font teamIdFont = new Font(Font, FontStyle.Bold);
+                                    RectangleF teamIdRect =
+                                        new RectangleF(
+                                            drawLeft,
+                                            teamDrawTop,
+                                            gameWidth,
+                                            teamDrawHeight);
+                                    e.Graphics.DrawString(team.Id, teamIdFont, textBrush, teamIdRect, teamIdStringFormat);
+                                }
                             }
-                            else
-                            {
-                                //Team id
-                                StringFormat teamIdStringFormat = new StringFormat();
-                                teamIdStringFormat.Alignment = StringAlignment.Near;
-                                teamIdStringFormat.LineAlignment = StringAlignment.Center;
-
-                                Font teamIdFont = new Font(Font, FontStyle.Bold);
-                                RectangleF teamIdRect =
-                                    new RectangleF(
-                                        drawLeft,
-                                        teamDrawTop,
-                                        gameWidth,
-                                        teamDrawHeight);
-                                e.Graphics.DrawString(team.Id, teamIdFont, textBrush, teamIdRect, teamIdStringFormat);
-                            }
+                            e.Graphics.DrawLine(gamesSeparatorPen, new PointF(gameRectangle.Right - 1, gameRectangle.Top), new PointF(gameRectangle.Right - 1, gameRectangle.Bottom - 1));
+                            e.Graphics.DrawLine(gamesSeparatorPen, new PointF(gameRectangle.Left, gameRectangle.Bottom - 1), new PointF(gameRectangle.Right - 1, gameRectangle.Bottom - 1));
+                            teamDrawTop += teamDrawHeight;
                         }
-                        e.Graphics.DrawLine(gamesSeparatorPen, new PointF(gameRectangle.Right - 1, gameRectangle.Top), new PointF(gameRectangle.Right - 1, gameRectangle.Bottom - 1));
-                        e.Graphics.DrawLine(gamesSeparatorPen, new PointF(gameRectangle.Left, gameRectangle.Bottom - 1), new PointF(gameRectangle.Right - 1, gameRectangle.Bottom - 1));
-                        teamDrawTop += teamDrawHeight;
                     }
+
                     drawLeft += courtColumnWidth;
                 }
 

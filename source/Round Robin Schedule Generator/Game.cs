@@ -360,6 +360,43 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
         }
 
+        protected bool _enabled = true;
+        [XmlAttribute("Enabled")]
+        public bool Enabled
+        {
+            get
+            {
+                return _enabled;
+            }
+            set
+            {
+                _enabled = value;
+
+                // Reset tracking of played games
+                if (!value)
+                {
+                    foreach (RoundRobinTeamData teamData in TeamDatas)
+                    {
+                        if (teamData != null)
+                        {
+                            teamData.removePlayedGame(this);
+                        }
+                    }
+                }
+                else
+                {
+
+                    foreach (RoundRobinTeamData teamData in TeamDatas)
+                    {
+                        if (teamData != null && !(new List<Game>(teamData.PlayedGames).Contains(this)))
+                        {
+                            teamData.addPlayedGame(this);
+                        }
+                    }
+                }
+            }
+        }
+
         protected Team _winningTeam = null;
         [XmlIgnore()]
         public Team WinningTeam
@@ -429,6 +466,41 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             foreach (RoundRobinTeamData teamData in TeamDatas)
             {
                 _teamGameResults.Add(teamData.Team.Id, new TeamGameResult(teamData));
+            }
+        }
+
+        public void resetTeams(RoundRobinTeamData team1Data, RoundRobinTeamData team2Data)
+        {
+            // Remove old team data
+            RoundRobinTeamData[] oldTeamDatas = TeamDatas.ToArray();
+
+            // Set up new team
+            if (team1Data.Team.Division != team2Data.Team.Division) throw new Exception("Teams must be in the same division");
+            _team1Data = team1Data;
+            _team2Data = team2Data;
+            _division = Team1.Division;
+            _teams = new Team[] { Team1, Team2 };
+            _teamGameResults.Clear();
+            foreach (RoundRobinTeamData teamData in TeamDatas)
+            {
+                _teamGameResults.Add(teamData.Team.Id, new TeamGameResult(teamData));
+            }
+
+            // Reset tracking of played games for both old and new teams
+            if (_winningTeam != null)
+            {
+                foreach (RoundRobinTeamData teamData in oldTeamDatas)
+                {
+                    teamData.removePlayedGame(this);
+                }
+
+                foreach (RoundRobinTeamData teamData in TeamDatas)
+                {
+                    if (!(new List<Game>(teamData.PlayedGames).Contains(this)))
+                    {
+                        teamData.addPlayedGame(this);
+                    }
+                }
             }
         }
 

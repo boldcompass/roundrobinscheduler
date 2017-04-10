@@ -15,7 +15,30 @@ namespace SomeTechie.RoundRobinScheduler
         public event ScoreEditorClosedEventHandler scoreEditorClosed;
         public event ScoreEditorClosingEventHandler scoreEditorClosing;
 
+
+        protected bool enableChangeTeams = false;
+
+        public bool EnableChangeTeams
+        {
+            get
+            {
+                return this.enableChangeTeams;
+            }
+            set
+            {
+                this.enableChangeTeams = value;
+
+                comboBoxTeam1.Visible = value;
+                comboBoxTeam2.Visible = value;
+
+                setTeamNames();
+            }
+        }
+
         protected Controller Controller = Controller.GetController();
+
+        protected Team team1;
+        protected Team team2;
 
         protected Game _game;
         public Game Game
@@ -31,27 +54,25 @@ namespace SomeTechie.RoundRobinScheduler
 
                 if (value != null)
                 {
-                    TeamGameResult team1Results = value.TeamGameResults[value.Team1.Id];
-                    TeamGameResult team2Results = value.TeamGameResults[value.Team2.Id];
+                    team1 = value.Team1;
+                    team2 = value.Team2;
+                    TeamGameResult team1Results = value.TeamGameResults[team1.Id];
+                    TeamGameResult team2Results = value.TeamGameResults[team2.Id];
+
+                    // Team Comboboxes
+                    comboBoxTeam1.Items.Clear();
+                    comboBoxTeam2.Items.Clear();
+                    foreach (Division division in Controller.Tournament.Divisions)
+                    {
+                        comboBoxTeam1.Items.AddRange(division.Teams.ToArray());
+                        comboBoxTeam2.Items.AddRange(division.Teams.ToArray());
+                    }
+
+                    comboBoxTeam2.SelectedItem = team2;
+                    comboBoxTeam1.SelectedItem = team1;
 
                     //Team names
-                    if (value.Team1.Id == value.Team1.Name)
-                    {
-                        chkTeam1Winner.Text = value.Team1.Name;
-                    }
-                    else
-                    {
-                        chkTeam1Winner.Text = "(" + value.Team1.Id + ") " + value.Team1.Name;
-                    }
-
-                    if (value.Team2.Id == value.Team2.Name)
-                    {
-                        chkTeam2Winner.Text = value.Team2.Name;
-                    }
-                    else
-                    {
-                        chkTeam2Winner.Text = "(" + value.Team2.Id + ") " + value.Team2.Name;
-                    }
+                    setTeamNames();
 
                     //Winner
                     chkTeam1Winner.Checked = team1Results.WonGame;
@@ -68,6 +89,41 @@ namespace SomeTechie.RoundRobinScheduler
                     //Is confirmed
                     chkConfirmed.Checked = value.IsConfirmed;
                 }
+            }
+        }
+
+        protected void setTeamNames()
+        {
+            if (!this.enableChangeTeams)
+            {
+                if(team1 != null) 
+                {
+                    if (team1.Id == team1.Name)
+                    {
+                        chkTeam1Winner.Text = team1.Name;
+                    }
+                    else
+                    {
+                        chkTeam1Winner.Text = "(" + team1.Id + ") " + team1.Name;
+                    }
+                }
+
+                if(team2 != null)
+                {
+                    if (team2.Id == team2.Name)
+                    {
+                        chkTeam2Winner.Text = team2.Name;
+                    }
+                    else
+                    {
+                        chkTeam2Winner.Text = "(" + team2.Id + ") " + team2.Name;
+                    }
+                }
+            }
+            else
+            {
+                chkTeam1Winner.Text = "";
+                chkTeam2Winner.Text = "";
             }
         }
 
@@ -97,7 +153,7 @@ namespace SomeTechie.RoundRobinScheduler
 
         private void setTeamPoints(Team team, int numPoints)
         {
-            Game.TeamGameResults[team.Id].NumPoints = numPoints;
+            Game.TeamGameResults[team.Id].NumPoints = numPoints; 
         }
 
         private void setTeamFouls(Team team, int numFouls)
@@ -118,11 +174,29 @@ namespace SomeTechie.RoundRobinScheduler
 
         public void endEdit(bool shouldSave = true)
         {
+            if (shouldSave && team1.Division != team2.Division)
+            {
+                MessageBox.Show("The teams must be in the same division.", "Division Mismatch", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (shouldSave && team1 == team2)
+            {
+                MessageBox.Show("The two teams must be different.", "Duplicate Teams", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             DialogResult result = shouldSave ? DialogResult.OK : DialogResult.Cancel;
             if (scoreEditorClosing != null) scoreEditorClosing(this, new ScoreEditorClosingEventArgs(result));
             this.Hide();
             if (shouldSave)
             {
+                if (team1 != Game.Team1 || team2 != Game.Team2)
+                {
+                    // Create a new Game
+                    Game.resetTeams(team1.RoundRobinData, team2.RoundRobinData);
+                }
+
                 //Winner
                 setTeamWon(Game.Teams[0], chkTeam1Winner.Checked);
                 setTeamWon(Game.Teams[1], chkTeam2Winner.Checked);
@@ -180,6 +254,18 @@ namespace SomeTechie.RoundRobinScheduler
         private void txtNum_Enter(object sender, EventArgs e)
         {
             ((TextBox)sender).SelectAll();
+        }
+
+        private void comboBoxTeam1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            team1 = (Team)comboBoxTeam1.SelectedItem;
+            setTeamNames();
+        }
+
+        private void comboBoxTeam2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            team2 = (Team)comboBoxTeam2.SelectedItem;
+            setTeamNames();
         }
     }
 
