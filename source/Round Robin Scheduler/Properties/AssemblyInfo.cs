@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Some Techie")]
 [assembly: AssemblyProduct("Round Robin Scheduler")]
-[assembly: AssemblyCopyright("Copyright ©  2011-2014 Some Techie, LLC. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright ©  2011-2017 Some Techie, LLC. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
