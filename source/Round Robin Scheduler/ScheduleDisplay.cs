@@ -78,6 +78,8 @@ namespace SomeTechie.RoundRobinScheduler
         protected Game currentHoveredGame = null;
         protected RectangleF currentHoveredGameRectangle = new RectangleF();
 
+        protected Game contextMenuGame = null;
+
         protected int currentSelectedGameIndex = -1;
         protected Game currentSelectedGame = null;
         protected RectangleF currentSelectedGameRectangle = new RectangleF();
@@ -607,7 +609,6 @@ namespace SomeTechie.RoundRobinScheduler
                         gameRectanglesByGame.Add(game, gameRectangle);
                         if (shouldDraw)
                         {
-
                             bool isHoveredGame = game == currentHoveredGame;
                             System.Diagnostics.Trace.WriteLine(game.ToString());
                             Color gameFillColor;
@@ -635,321 +636,324 @@ namespace SomeTechie.RoundRobinScheduler
 
                             graphics.FillRectangle(new SolidBrush(gameFillColor), gameRectangle);
 
-                            if (isHoveredGame)
+                            if (game.Enabled)
                             {
-                                Image editScoreIconImage = Properties.Resources.EditScoreIcon;
-
-                                Rectangle editScoreIconRectangle =
-                                    new Rectangle(
-                                            (int)gameRectangle.Right - editScoreIconImage.Width - editScoreIconMargin.Right,
-                                            (int)gameRectangle.Bottom - editScoreIconImage.Height - editScoreIconMargin.Bottom,
-                                            editScoreIconImage.Width,
-                                            editScoreIconImage.Height);
-                                graphics.DrawImage(editScoreIconImage, editScoreIconRectangle);
-                            }
-                            int gameWidth = courtColumnWidth - gamePadding.Top - gamePadding.Bottom;
-                            int gameHeight = roundHeight - gamePadding.Left - gamePadding.Right;
-
-                            int availableTeamsHeight = gameHeight;
-                            if (shouldShowUnconfirmedText) availableTeamsHeight -= unconfirmedTextHeight;
-                            if (shouldShowScoreKeeperName) availableTeamsHeight -= scoreKeeperNameHeight;
-
-                            int teamDrawTop = drawTop + gamePadding.Top;
-                            int teamDrawLeft = drawLeft + gamePadding.Left;
-                            int teamDrawHeight = availableTeamsHeight / game.NumTeams;
-                        #endregion
-                            #region Calculate largest score and foul size
-                            //Calculate largest score and foul size
-                            int maxScoreFoulsWidth = 0;
-                            Dictionary<Team, bool> shouldShowScoreForTeams = new Dictionary<Team, bool>();
-                            Dictionary<Team, bool> shouldShowFoulsForTeams = new Dictionary<Team, bool>();
-                            foreach (Team team in game.Teams)
-                            {
-                                if (team != null)
+                                if (isHoveredGame)
                                 {
-                                    TeamGameResult teamGameResult = game.TeamGameResults[team.Id];
+                                    Image editScoreIconImage = Properties.Resources.EditScoreIcon;
 
-                                    bool showGameStats = courtRoundIsActive || courtRoundIsCompleted || game.IsInProgress || game.IsCompleted;
-                                    bool shouldShowScore = showGameStats;
-                                    shouldShowScoreForTeams[team] = shouldShowScore;
-                                    bool shouldShowFouls = (showGameStats) && teamGameResult.NumFouls > 0;
-                                    shouldShowFoulsForTeams[team] = shouldShowFouls;
+                                    Rectangle editScoreIconRectangle =
+                                        new Rectangle(
+                                                (int)gameRectangle.Right - editScoreIconImage.Width - editScoreIconMargin.Right,
+                                                (int)gameRectangle.Bottom - editScoreIconImage.Height - editScoreIconMargin.Bottom,
+                                                editScoreIconImage.Width,
+                                                editScoreIconImage.Height);
+                                    graphics.DrawImage(editScoreIconImage, editScoreIconRectangle);
+                                }
+                                int gameWidth = courtColumnWidth - gamePadding.Top - gamePadding.Bottom;
+                                int gameHeight = roundHeight - gamePadding.Left - gamePadding.Right;
 
-                                    if (shouldShowScore || shouldShowFouls)
+                                int availableTeamsHeight = gameHeight;
+                                if (shouldShowUnconfirmedText) availableTeamsHeight -= unconfirmedTextHeight;
+                                if (shouldShowScoreKeeperName) availableTeamsHeight -= scoreKeeperNameHeight;
+
+                                int teamDrawTop = drawTop + gamePadding.Top;
+                                int teamDrawLeft = drawLeft + gamePadding.Left;
+                                int teamDrawHeight = availableTeamsHeight / game.NumTeams;
+                                #endregion
+                                #region Calculate largest score and foul size
+                                //Calculate largest score and foul size
+                                int maxScoreFoulsWidth = 0;
+                                Dictionary<Team, bool> shouldShowScoreForTeams = new Dictionary<Team, bool>();
+                                Dictionary<Team, bool> shouldShowFoulsForTeams = new Dictionary<Team, bool>();
+                                foreach (Team team in game.Teams)
+                                {
+                                    if (team != null)
                                     {
-                                        int scoreFoulsWidth = 0;
-                                        string teamScoreText = null;
-                                        string teamFoulsText = null;
+                                        TeamGameResult teamGameResult = game.TeamGameResults[team.Id];
 
-                                        #region Calculate size for score
-                                        //Calculate size for score if needed
-                                        if (shouldShowScore)
+                                        bool showGameStats = courtRoundIsActive || courtRoundIsCompleted || game.IsInProgress || game.IsCompleted;
+                                        bool shouldShowScore = showGameStats;
+                                        shouldShowScoreForTeams[team] = shouldShowScore;
+                                        bool shouldShowFouls = (showGameStats) && teamGameResult.NumFouls > 0;
+                                        shouldShowFoulsForTeams[team] = shouldShowFouls;
+
+                                        if (shouldShowScore || shouldShowFouls)
                                         {
-                                            teamScoreText = teamGameResult.NumPoints.ToString();
-                                           
-                                            float scoreWidth = graphics.MeasureString(teamScoreText, teamScoreFont).Width;
+                                            int scoreFoulsWidth = 0;
+                                            string teamScoreText = null;
+                                            string teamFoulsText = null;
 
-                                            scoreFoulsWidth += (int)(scoreMargin.Left + scoreWidth + scoreMargin.Right);
+                                            #region Calculate size for score
+                                            //Calculate size for score if needed
+                                            if (shouldShowScore)
+                                            {
+                                                teamScoreText = teamGameResult.NumPoints.ToString();
+
+                                                float scoreWidth = graphics.MeasureString(teamScoreText, teamScoreFont).Width;
+
+                                                scoreFoulsWidth += (int)(scoreMargin.Left + scoreWidth + scoreMargin.Right);
+                                            }
+                                            #endregion
+
+                                            #region Calculate size for fouls
+                                            //Calculate size for number of fouls if needed
+                                            if (shouldShowFouls)
+                                            {
+                                                teamFoulsText = string.Format("({0}F)", teamGameResult.NumFouls.ToString());
+
+                                                float foulsWidth = graphics.MeasureString(teamFoulsText, teamFoulsFont).Width;
+
+                                                scoreFoulsWidth += (int)(foulsMargin.Left + foulsWidth + foulsMargin.Right);
+                                            }
+                                            #endregion
+                                            if (scoreFoulsWidth > maxScoreFoulsWidth) maxScoreFoulsWidth = scoreFoulsWidth;
                                         }
-                                        #endregion
-
-                                        #region Calculate size for fouls
-                                        //Calculate size for number of fouls if needed
-                                        if (shouldShowFouls)
-                                        {
-                                            teamFoulsText = string.Format("({0}F)", teamGameResult.NumFouls.ToString());
-                                           
-                                            float foulsWidth = graphics.MeasureString(teamFoulsText, teamFoulsFont).Width;
-
-                                            scoreFoulsWidth += (int)(foulsMargin.Left + foulsWidth + foulsMargin.Right);
-                                        }
-                                        #endregion
-                                        if (scoreFoulsWidth > maxScoreFoulsWidth) maxScoreFoulsWidth = scoreFoulsWidth;
                                     }
                                 }
-                            }
-                                    
-                            #endregion
-                            #region Draw teams
-                            //Draw teams
-                            foreach (Team team in game.Teams)
-                            {
 
-                                if (team != null)
+                                #endregion
+                                #region Draw teams
+                                //Draw teams
+                                foreach (Team team in game.Teams)
                                 {
-                                    #region Draw team other
-                                    TeamGameResult teamGameResult = game.TeamGameResults[team.Id];
 
-                                    bool shouldShowScore = shouldShowScoreForTeams[team];
-                                    bool shouldShowFouls = shouldShowFoulsForTeams[team];
-
-                                    Font teamIdFont = normalTeamIdFont;
-                                    Font teamNameFont = normalTeamNameFont;
-                                    Brush teamTextBrush = normalTextBrush;
-                                    Brush teamScoreBrush = normalTextBrush;
-                                    if (teamGameResult.WonGame)
+                                    if (team != null)
                                     {
-                                        teamTextBrush = winnerTextBrush;
-                                        teamScoreBrush = winnerScoreBrush;
-                                        teamIdFont = winnerTeamIdFont;
-                                        teamNameFont = winnerTeamNameFont;
-                                    }
-                                    else if (game.WinningTeam != null)
-                                    {
-                                        teamTextBrush = loserTextBrush;
-                                        teamScoreBrush = loserScoreBrush;
-                                        teamIdFont = loserTeamIdFont;
-                                        teamNameFont = loserTeamNameFont;
-                                    }
-                                    #endregion
+                                        #region Draw team other
+                                        TeamGameResult teamGameResult = game.TeamGameResults[team.Id];
 
-                                    #region Draw score and fouls
-                                    //Draw score and fouls
-                                    if (shouldShowScore || shouldShowFouls)
-                                    {
-                                        RectangleF scoreRect = RectangleF.Empty;
-                                        string teamScoreText = null;
-                                        RectangleF foulsRect = RectangleF.Empty;
-                                        string teamFoulsText = null;
-                                        StringFormat teamFoulsStringFormat = null;
-                                        StringFormat teamScoreStringFormat = null;
+                                        bool shouldShowScore = shouldShowScoreForTeams[team];
+                                        bool shouldShowFouls = shouldShowFoulsForTeams[team];
 
-                                        #region Calculate positioning for score
-                                        //Calculate positioning for score if needed
-                                        if (shouldShowScore)
-                                        {
-                                            teamScoreText = teamGameResult.NumPoints.ToString();
-                                            teamScoreStringFormat = new StringFormat();
-                                            teamScoreStringFormat.Alignment = StringAlignment.Center;
-                                            teamScoreStringFormat.LineAlignment = StringAlignment.Center;
-                                            teamScoreStringFormat.FormatFlags = StringFormatFlags.NoWrap;
-
-                                            float scoreWidth = graphics.MeasureString(teamScoreText, teamScoreFont).Width;
-
-                                            scoreRect =
-                                            new RectangleF(
-                                                teamDrawLeft + gameWidth - maxScoreFoulsWidth + scoreMargin.Left,
-                                                teamDrawTop,
-                                                scoreWidth,
-                                                teamDrawHeight);
-                                        }
-                                        #endregion
-
-                                        #region Calculate positioning for fouls
-                                        //Calculate positioning for number of fouls if needed
-                                        if (shouldShowFouls)
-                                        {
-                                            teamFoulsText = string.Format("({0}F)", teamGameResult.NumFouls.ToString());
-                                            teamFoulsStringFormat = new StringFormat();
-                                            teamFoulsStringFormat.Alignment = StringAlignment.Center;
-                                            teamFoulsStringFormat.LineAlignment = StringAlignment.Center;
-                                            teamFoulsStringFormat.FormatFlags = StringFormatFlags.NoWrap;
-
-                                            float foulsWidth = graphics.MeasureString(teamFoulsText, teamFoulsFont).Width;
-
-                                            foulsRect =
-                                            new RectangleF(
-                                                teamDrawLeft + gameWidth - maxScoreFoulsWidth + foulsMargin.Left,
-                                                teamDrawTop,
-                                                foulsWidth,
-                                                teamDrawHeight);
-                                            if (shouldShowFouls) foulsRect.X += scoreMargin.Left + scoreRect.Width + scoreMargin.Right;
-                                        }
-                                        #endregion
-
-                                        if (shouldShowScore)
-                                        {
-                                            graphics.DrawString(teamScoreText, teamScoreFont, teamScoreBrush, scoreRect, teamScoreStringFormat);
-                                        }
-                                        if (shouldShowFouls)
-                                        {
-                                            graphics.DrawString(teamFoulsText, teamFoulsFont, teamFoulsBrush, foulsRect, teamFoulsStringFormat);
-                                        }
-                                    }
-                                    #endregion
-
-                                    #region Draw team name and id
-                                    //Draw team name and id
-                                    if (team.Name != team.Id)
-                                    {
-                                        //Calculate team id location
-                                        StringFormat teamIdStringFormat = new StringFormat();
-                                        teamIdStringFormat.Alignment = StringAlignment.Near;
-                                        teamIdStringFormat.LineAlignment = StringAlignment.Center;
-
-                                        RectangleF teamIdRect =
-                                            new RectangleF(
-                                                teamDrawLeft + teamIdMargin.Left + winnerIconSpace,
-                                                teamDrawTop,
-                                                graphics.MeasureString(team.Id, teamIdFont).Width + teamIdMargin.Right,
-                                                teamDrawHeight);
-
-                                        //Draw winner icon if needed
+                                        Font teamIdFont = normalTeamIdFont;
+                                        Font teamNameFont = normalTeamNameFont;
+                                        Brush teamTextBrush = normalTextBrush;
+                                        Brush teamScoreBrush = normalTextBrush;
                                         if (teamGameResult.WonGame)
                                         {
-                                            Rectangle WinnerIconRectangle =
-                                                new Rectangle(
-                                                    teamDrawLeft + winnerIconMargin.Left,
-                                                    teamDrawTop + (teamDrawHeight - WinnerIconImage.Height) / 2,
-                                                    WinnerIconImage.Width,
-                                                    WinnerIconImage.Height);
-
-                                            graphics.DrawImage(WinnerIconImage, WinnerIconRectangle);
+                                            teamTextBrush = winnerTextBrush;
+                                            teamScoreBrush = winnerScoreBrush;
+                                            teamIdFont = winnerTeamIdFont;
+                                            teamNameFont = winnerTeamNameFont;
                                         }
-
-                                        //Calculate team name location
-                                        StringFormat teamNameStringFormat = new StringFormat();
-                                        teamNameStringFormat.Alignment = StringAlignment.Near;
-                                        teamNameStringFormat.LineAlignment = StringAlignment.Center;
-                                        teamNameStringFormat.FormatFlags = StringFormatFlags.NoWrap;
-                                        teamNameStringFormat.Trimming = StringTrimming.EllipsisCharacter;
-
-                                        RectangleF teamNameRect =
-                                            new RectangleF(
-                                                teamIdRect.Right,
-                                                teamDrawTop,
-                                                gameWidth - (teamIdRect.Right - teamDrawLeft),
-                                                teamDrawHeight);
-
-                                        if (maxScoreFoulsWidth > 0)
+                                        else if (game.WinningTeam != null)
                                         {
-                                            teamNameRect.Width -= maxScoreFoulsWidth;
+                                            teamTextBrush = loserTextBrush;
+                                            teamScoreBrush = loserScoreBrush;
+                                            teamIdFont = loserTeamIdFont;
+                                            teamNameFont = loserTeamNameFont;
                                         }
+                                        #endregion
 
-                                        //Draw text
-                                        graphics.DrawString(team.Id, teamIdFont, teamTextBrush, teamIdRect, teamIdStringFormat);
-                                        graphics.DrawString(team.Name, teamNameFont, teamTextBrush, teamNameRect, teamNameStringFormat);
-                                    }
-                                    else
-                                    {
-                                        //Calculate team id location
-                                        StringFormat teamIdStringFormat = new StringFormat();
-                                        teamIdStringFormat.Alignment = StringAlignment.Near;
-                                        teamIdStringFormat.LineAlignment = StringAlignment.Center;
-
-                                        RectangleF teamIdRect =
-                                            new RectangleF(
-                                                teamDrawLeft + teamIdMargin.Left + winnerIconSpace,
-                                                teamDrawTop,
-                                                gameWidth - winnerIconSpace,
-                                                teamDrawHeight);
-
-                                        //Draw text
-                                        graphics.DrawString(team.Id, teamIdFont, teamTextBrush, teamIdRect, teamIdStringFormat);
-
-                                        //Draw winner icon if needed
-                                        if (teamGameResult.WonGame)
+                                        #region Draw score and fouls
+                                        //Draw score and fouls
+                                        if (shouldShowScore || shouldShowFouls)
                                         {
-                                            SizeF teamIdSize = graphics.MeasureString(team.Id, teamIdFont);
-                                            Rectangle WinnerIconRectangle =
-                                               new Rectangle(
-                                                   teamDrawLeft + winnerIconMargin.Left,
-                                                   teamDrawTop + (teamDrawHeight - WinnerIconImage.Height) / 2,
-                                                   WinnerIconImage.Width,
-                                                   WinnerIconImage.Height);
-                                            graphics.DrawImage(WinnerIconImage, WinnerIconRectangle);
+                                            RectangleF scoreRect = RectangleF.Empty;
+                                            string teamScoreText = null;
+                                            RectangleF foulsRect = RectangleF.Empty;
+                                            string teamFoulsText = null;
+                                            StringFormat teamFoulsStringFormat = null;
+                                            StringFormat teamScoreStringFormat = null;
+
+                                            #region Calculate positioning for score
+                                            //Calculate positioning for score if needed
+                                            if (shouldShowScore)
+                                            {
+                                                teamScoreText = teamGameResult.NumPoints.ToString();
+                                                teamScoreStringFormat = new StringFormat();
+                                                teamScoreStringFormat.Alignment = StringAlignment.Center;
+                                                teamScoreStringFormat.LineAlignment = StringAlignment.Center;
+                                                teamScoreStringFormat.FormatFlags = StringFormatFlags.NoWrap;
+
+                                                float scoreWidth = graphics.MeasureString(teamScoreText, teamScoreFont).Width;
+
+                                                scoreRect =
+                                                new RectangleF(
+                                                    teamDrawLeft + gameWidth - maxScoreFoulsWidth + scoreMargin.Left,
+                                                    teamDrawTop,
+                                                    scoreWidth,
+                                                    teamDrawHeight);
+                                            }
+                                            #endregion
+
+                                            #region Calculate positioning for fouls
+                                            //Calculate positioning for number of fouls if needed
+                                            if (shouldShowFouls)
+                                            {
+                                                teamFoulsText = string.Format("({0}F)", teamGameResult.NumFouls.ToString());
+                                                teamFoulsStringFormat = new StringFormat();
+                                                teamFoulsStringFormat.Alignment = StringAlignment.Center;
+                                                teamFoulsStringFormat.LineAlignment = StringAlignment.Center;
+                                                teamFoulsStringFormat.FormatFlags = StringFormatFlags.NoWrap;
+
+                                                float foulsWidth = graphics.MeasureString(teamFoulsText, teamFoulsFont).Width;
+
+                                                foulsRect =
+                                                new RectangleF(
+                                                    teamDrawLeft + gameWidth - maxScoreFoulsWidth + foulsMargin.Left,
+                                                    teamDrawTop,
+                                                    foulsWidth,
+                                                    teamDrawHeight);
+                                                if (shouldShowFouls) foulsRect.X += scoreMargin.Left + scoreRect.Width + scoreMargin.Right;
+                                            }
+                                            #endregion
+
+                                            if (shouldShowScore)
+                                            {
+                                                graphics.DrawString(teamScoreText, teamScoreFont, teamScoreBrush, scoreRect, teamScoreStringFormat);
+                                            }
+                                            if (shouldShowFouls)
+                                            {
+                                                graphics.DrawString(teamFoulsText, teamFoulsFont, teamFoulsBrush, foulsRect, teamFoulsStringFormat);
+                                            }
                                         }
+                                        #endregion
+
+                                        #region Draw team name and id
+                                        //Draw team name and id
+                                        if (team.Name != team.Id)
+                                        {
+                                            //Calculate team id location
+                                            StringFormat teamIdStringFormat = new StringFormat();
+                                            teamIdStringFormat.Alignment = StringAlignment.Near;
+                                            teamIdStringFormat.LineAlignment = StringAlignment.Center;
+
+                                            RectangleF teamIdRect =
+                                                new RectangleF(
+                                                    teamDrawLeft + teamIdMargin.Left + winnerIconSpace,
+                                                    teamDrawTop,
+                                                    graphics.MeasureString(team.Id, teamIdFont).Width + teamIdMargin.Right,
+                                                    teamDrawHeight);
+
+                                            //Draw winner icon if needed
+                                            if (teamGameResult.WonGame)
+                                            {
+                                                Rectangle WinnerIconRectangle =
+                                                    new Rectangle(
+                                                        teamDrawLeft + winnerIconMargin.Left,
+                                                        teamDrawTop + (teamDrawHeight - WinnerIconImage.Height) / 2,
+                                                        WinnerIconImage.Width,
+                                                        WinnerIconImage.Height);
+
+                                                graphics.DrawImage(WinnerIconImage, WinnerIconRectangle);
+                                            }
+
+                                            //Calculate team name location
+                                            StringFormat teamNameStringFormat = new StringFormat();
+                                            teamNameStringFormat.Alignment = StringAlignment.Near;
+                                            teamNameStringFormat.LineAlignment = StringAlignment.Center;
+                                            teamNameStringFormat.FormatFlags = StringFormatFlags.NoWrap;
+                                            teamNameStringFormat.Trimming = StringTrimming.EllipsisCharacter;
+
+                                            RectangleF teamNameRect =
+                                                new RectangleF(
+                                                    teamIdRect.Right,
+                                                    teamDrawTop,
+                                                    gameWidth - (teamIdRect.Right - teamDrawLeft),
+                                                    teamDrawHeight);
+
+                                            if (maxScoreFoulsWidth > 0)
+                                            {
+                                                teamNameRect.Width -= maxScoreFoulsWidth;
+                                            }
+
+                                            //Draw text
+                                            graphics.DrawString(team.Id, teamIdFont, teamTextBrush, teamIdRect, teamIdStringFormat);
+                                            graphics.DrawString(team.Name, teamNameFont, teamTextBrush, teamNameRect, teamNameStringFormat);
+                                        }
+                                        else
+                                        {
+                                            //Calculate team id location
+                                            StringFormat teamIdStringFormat = new StringFormat();
+                                            teamIdStringFormat.Alignment = StringAlignment.Near;
+                                            teamIdStringFormat.LineAlignment = StringAlignment.Center;
+
+                                            RectangleF teamIdRect =
+                                                new RectangleF(
+                                                    teamDrawLeft + teamIdMargin.Left + winnerIconSpace,
+                                                    teamDrawTop,
+                                                    gameWidth - winnerIconSpace,
+                                                    teamDrawHeight);
+
+                                            //Draw text
+                                            graphics.DrawString(team.Id, teamIdFont, teamTextBrush, teamIdRect, teamIdStringFormat);
+
+                                            //Draw winner icon if needed
+                                            if (teamGameResult.WonGame)
+                                            {
+                                                SizeF teamIdSize = graphics.MeasureString(team.Id, teamIdFont);
+                                                Rectangle WinnerIconRectangle =
+                                                   new Rectangle(
+                                                       teamDrawLeft + winnerIconMargin.Left,
+                                                       teamDrawTop + (teamDrawHeight - WinnerIconImage.Height) / 2,
+                                                       WinnerIconImage.Width,
+                                                       WinnerIconImage.Height);
+                                                graphics.DrawImage(WinnerIconImage, WinnerIconRectangle);
+                                            }
+                                        }
+                                        #endregion
                                     }
-                                    #endregion
+                                    teamDrawTop += teamDrawHeight;
                                 }
-                                teamDrawTop += teamDrawHeight;
-                            }
-                            #endregion
-                            #region Draw unofficial text
-                            //Draw unofficial text if needed
-                            if (shouldShowUnconfirmedText && !game.IsConfirmed)
-                            {
-                                RectangleF unconfirmedTextRect =
-                                   new RectangleF(
-                                           gameRectangle.Left + gamePadding.Left,
-                                           gameRectangle.Top + gameRectangle.Height - gamePadding.Bottom - unconfirmedTextHeight,
-                                           gameRectangle.Width - gamePadding.Left - gamePadding.Right,
-                                           unconfirmedTextHeight);
-                                if (shouldShowScoreKeeperName) unconfirmedTextRect.Y -= scoreKeeperNameHeight;
-                                StringFormat unofficialTextStringFormat = new StringFormat();
-                                unofficialTextStringFormat.Alignment = StringAlignment.Center;
-                                unofficialTextStringFormat.LineAlignment = StringAlignment.Near;
-                                unofficialTextStringFormat.Trimming = StringTrimming.EllipsisCharacter;
-
-                                string unconfirmedText = "(Unofficial)";
-                                graphics.DrawString(unconfirmedText, unconfirmedTextFont, unconfirmedTextBrush, unconfirmedTextRect, unofficialTextStringFormat);
-                            }
-                            #endregion
-                            #region Draw score keeper name
-                            //Draw score keeper name if needed
-                            if (shouldShowScoreKeeperName)
-                            {
-                                RectangleF scoreKeeperNameRect =
-                                   new RectangleF(
-                                           gameRectangle.Left + gamePadding.Left,
-                                           gameRectangle.Top + gameRectangle.Height - gamePadding.Bottom - scoreKeeperNameHeight,
-                                           gameRectangle.Width - gamePadding.Left - gamePadding.Right,
-                                           scoreKeeperNameHeight);
-                                StringFormat scoreKeeperStringFormat = new StringFormat();
-                                scoreKeeperStringFormat.Alignment = StringAlignment.Center;
-                                scoreKeeperStringFormat.LineAlignment = StringAlignment.Center;
-                                scoreKeeperStringFormat.Trimming = StringTrimming.EllipsisCharacter;
-
-                                string scoreKeeperName = "No Scorekeeper";
-                                Brush scoreKeeperTextBrush = scoreKeeperNotAssignedTextBrush;
-                                if (Controller.ScoreKeepersAssignment.ContainsKey(gamePosition))
+                                #endregion
+                                #region Draw unofficial text
+                                //Draw unofficial text if needed
+                                if (shouldShowUnconfirmedText && !game.IsConfirmed)
                                 {
-                                    ScoreKeeper scoreKeeper = Controller.ScoreKeepersAssignment[gamePosition];
-                                    scoreKeeperName = scoreKeeper.Name;
-                                    if (timesScoreKeeperInCourtRound[scoreKeeper] <= 1)
-                                    {
-                                        scoreKeeperTextBrush = normalTextBrush;
-                                    }
-                                    //Score keeper is assigned to more than one in the same court round
-                                    else
-                                    {
-                                        scoreKeeperTextBrush = scoreKeeperDuplicateTextBrush;
-                                    }
+                                    RectangleF unconfirmedTextRect =
+                                       new RectangleF(
+                                               gameRectangle.Left + gamePadding.Left,
+                                               gameRectangle.Top + gameRectangle.Height - gamePadding.Bottom - unconfirmedTextHeight,
+                                               gameRectangle.Width - gamePadding.Left - gamePadding.Right,
+                                               unconfirmedTextHeight);
+                                    if (shouldShowScoreKeeperName) unconfirmedTextRect.Y -= scoreKeeperNameHeight;
+                                    StringFormat unofficialTextStringFormat = new StringFormat();
+                                    unofficialTextStringFormat.Alignment = StringAlignment.Center;
+                                    unofficialTextStringFormat.LineAlignment = StringAlignment.Near;
+                                    unofficialTextStringFormat.Trimming = StringTrimming.EllipsisCharacter;
 
+                                    string unconfirmedText = "(Unofficial)";
+                                    graphics.DrawString(unconfirmedText, unconfirmedTextFont, unconfirmedTextBrush, unconfirmedTextRect, unofficialTextStringFormat);
                                 }
-                                graphics.DrawString(scoreKeeperName, scoreKeeperNameFont, scoreKeeperTextBrush, scoreKeeperNameRect, scoreKeeperStringFormat);
+                                #endregion
+                                #region Draw score keeper name
+                                //Draw score keeper name if needed
+                                if (shouldShowScoreKeeperName)
+                                {
+                                    RectangleF scoreKeeperNameRect =
+                                       new RectangleF(
+                                               gameRectangle.Left + gamePadding.Left,
+                                               gameRectangle.Top + gameRectangle.Height - gamePadding.Bottom - scoreKeeperNameHeight,
+                                               gameRectangle.Width - gamePadding.Left - gamePadding.Right,
+                                               scoreKeeperNameHeight);
+                                    StringFormat scoreKeeperStringFormat = new StringFormat();
+                                    scoreKeeperStringFormat.Alignment = StringAlignment.Center;
+                                    scoreKeeperStringFormat.LineAlignment = StringAlignment.Center;
+                                    scoreKeeperStringFormat.Trimming = StringTrimming.EllipsisCharacter;
+
+                                    string scoreKeeperName = "No Scorekeeper";
+                                    Brush scoreKeeperTextBrush = scoreKeeperNotAssignedTextBrush;
+                                    if (Controller.ScoreKeepersAssignment.ContainsKey(gamePosition))
+                                    {
+                                        ScoreKeeper scoreKeeper = Controller.ScoreKeepersAssignment[gamePosition];
+                                        scoreKeeperName = scoreKeeper.Name;
+                                        if (timesScoreKeeperInCourtRound[scoreKeeper] <= 1)
+                                        {
+                                            scoreKeeperTextBrush = normalTextBrush;
+                                        }
+                                        //Score keeper is assigned to more than one in the same court round
+                                        else
+                                        {
+                                            scoreKeeperTextBrush = scoreKeeperDuplicateTextBrush;
+                                        }
+
+                                    }
+                                    graphics.DrawString(scoreKeeperName, scoreKeeperNameFont, scoreKeeperTextBrush, scoreKeeperNameRect, scoreKeeperStringFormat);
+                                }
+                                #endregion
                             }
-                            #endregion
                            
                             graphics.DrawLine(gamesSeparatorPen, new PointF(gameRectangle.Right - 1, gameRectangle.Top), new PointF(gameRectangle.Right - 1, gameRectangle.Bottom - 1));
                             graphics.DrawLine(gamesSeparatorPen, new PointF(gameRectangle.Left, gameRectangle.Bottom - 1), new PointF(gameRectangle.Right - 1, gameRectangle.Bottom - 1));
@@ -1125,7 +1129,19 @@ namespace SomeTechie.RoundRobinScheduler
             //We figured out what game was clicked on
             if (ClickedGame != null)
             {
-                startEditingGame(ClickedGame);
+                if (e.Button == MouseButtons.Left)
+                {
+                    startEditingGame(ClickedGame);
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    if (this.EnableEditing)
+                    {
+                        ctxtToggleGameVisibility.Text = ClickedGame.Enabled ? "Hide" : "Show";
+                        contextMenuGame = ClickedGame;
+                        contextMenu.Show(Cursor.Position);
+                    }
+                }
             }
         }
 
@@ -1343,6 +1359,16 @@ namespace SomeTechie.RoundRobinScheduler
         private void scoreEditor_scoreEditorClosing(object sender, ScoreEditorClosingEventArgs e)
         {
             tempScrollPosition = scrollingPanel.AutoScrollPosition;
+        }
+
+        private void ctxtToggleGameVisibility_Click(object sender, EventArgs e)
+        {
+            if (contextMenuGame != null)
+            {
+                contextMenuGame.Enabled = !contextMenuGame.Enabled;
+                courtRoundsPaintable.Invalidate(RectangleFToRectangle(gameRectanglesByGame[contextMenuGame]));
+                Controller.TriggerGameResultChanged(contextMenuGame);
+            }
         }
     }
 }

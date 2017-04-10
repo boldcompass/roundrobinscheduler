@@ -360,6 +360,43 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
         }
 
+        protected bool _enabled = true;
+        [XmlAttribute("Enabled")]
+        public bool Enabled
+        {
+            get
+            {
+                return _enabled;
+            }
+            set
+            {
+                _enabled = value;
+
+                // Reset tracking of played games
+                if (!value)
+                {
+                    foreach (RoundRobinTeamData teamData in TeamDatas)
+                    {
+                        if (teamData != null)
+                        {
+                            teamData.removePlayedGame(this);
+                        }
+                    }
+                }
+                else
+                {
+
+                    foreach (RoundRobinTeamData teamData in TeamDatas)
+                    {
+                        if (teamData != null && !(new List<Game>(teamData.PlayedGames).Contains(this)))
+                        {
+                            teamData.addPlayedGame(this);
+                        }
+                    }
+                }
+            }
+        }
+
         protected Team _winningTeam = null;
         [XmlIgnore()]
         public Team WinningTeam

@@ -677,7 +677,7 @@ namespace SomeTechie.RoundRobinScheduler.WebServer
                     string key = courtRound.RoundNumber.ToString();
                     object value;
                     Game courtRoundGame = getGameInCourtRoundForAccessCode(courtRound, accessCode);
-                    if (courtRoundGame != null)
+                    if (courtRoundGame != null && courtRoundGame.Enabled)
                     {
                         value = new GameWebData(courtRoundGame);
 
@@ -739,7 +739,7 @@ namespace SomeTechie.RoundRobinScheduler.WebServer
 
 
             object gameData = null;
-            if (game != null) gameData = new GameWebData(game);
+            if (game != null && game.Enabled) gameData = new GameWebData(game);
             else gameData = new { NotAssigned = notAssigned, GameCompleted = gameCompleted, CourtRoundNum = currentRound };
 
             return gameData;

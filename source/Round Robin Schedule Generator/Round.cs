@@ -87,6 +87,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                 List<Team> teams = new List<Team>();
                 foreach (Game game in Games)
                 {
+                    if (!game.Enabled) continue;
                     teams.AddRange(game.Teams);
                 }
                 return teams;
@@ -99,6 +100,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             {
                 foreach (Game game in Games)
                 {
+                    if (!game.Enabled) continue;
                     if (!game.IsConfirmed) return false;
                 }
                 return true;
@@ -112,6 +114,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
                 bool? isCompleted = null;
                 foreach (Game game in Games)
                 {
+                    if (!game.Enabled) continue;
                     if (game.IsInProgress) return true;
                     else if (game.IsCompleted)
                     {
@@ -129,7 +132,7 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             {
                 foreach (Game game in Games)
                 {
-                    if (!game.IsCompleted) return false;
+                    if (game.Enabled && !game.IsCompleted) return false;
                 }
                 return true;
             }

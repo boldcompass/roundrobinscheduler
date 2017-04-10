@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.scrollingPanel = new System.Windows.Forms.Panel();
             this.scoreEditor = new SomeTechie.RoundRobinScheduler.ScoreEditor();
             this.courtRoundsPaintable = new SomeTechie.RoundRobinScheduler.Paintable();
             this.btnMoreRounds = new System.Windows.Forms.Button();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ctxtToggleGameVisibility = new System.Windows.Forms.ToolStripMenuItem();
             this.scrollingPanel.SuspendLayout();
             this.courtRoundsPaintable.SuspendLayout();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // scrollingPanel
@@ -51,6 +55,7 @@
             // 
             this.scoreEditor.AutoSize = true;
             this.scoreEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(107)))), ((int)(((byte)(0)))));
+            this.scoreEditor.EnableChangeTeams = false;
             this.scoreEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreEditor.Location = new System.Drawing.Point(0, 0);
             this.scoreEditor.Margin = new System.Windows.Forms.Padding(4);
@@ -63,8 +68,8 @@
             // 
             // courtRoundsPaintable
             // 
-            this.courtRoundsPaintable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.courtRoundsPaintable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.courtRoundsPaintable.Controls.Add(this.btnMoreRounds);
             this.courtRoundsPaintable.Location = new System.Drawing.Point(0, 0);
             this.courtRoundsPaintable.Margin = new System.Windows.Forms.Padding(0);
@@ -95,6 +100,20 @@
             this.btnMoreRounds.UseVisualStyleBackColor = true;
             this.btnMoreRounds.Click += new System.EventHandler(this.btnMoreRounds_Click);
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ctxtToggleGameVisibility});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(100, 26);
+            // 
+            // ctxtToggleGameVisibility
+            // 
+            this.ctxtToggleGameVisibility.Name = "ctxtToggleGameVisibility";
+            this.ctxtToggleGameVisibility.Size = new System.Drawing.Size(99, 22);
+            this.ctxtToggleGameVisibility.Text = "Hide";
+            this.ctxtToggleGameVisibility.Click += new System.EventHandler(this.ctxtToggleGameVisibility_Click);
+            // 
             // ScheduleDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -109,6 +128,7 @@
             this.scrollingPanel.PerformLayout();
             this.courtRoundsPaintable.ResumeLayout(false);
             this.courtRoundsPaintable.PerformLayout();
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -119,6 +139,8 @@
         private Paintable courtRoundsPaintable;
         private ScoreEditor scoreEditor;
         private System.Windows.Forms.Button btnMoreRounds;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem ctxtToggleGameVisibility;
 
     }
 }

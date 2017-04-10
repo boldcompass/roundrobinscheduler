@@ -27,9 +27,12 @@ namespace SomeTechie.RoundRobinScheduleGenerator
             }
             set
             {
-                _numCourts = value;
-                if (Tournament != null) Tournament = new Tournament(Tournament.Divisions, _numCourts);
-                if (NumCourtsChanged != null) TriggerEvent(NumCourtsChanged,this, new EventArgs());
+                if (_numCourts != value)
+                {
+                    _numCourts = value;
+                    if (Tournament != null) Tournament = new Tournament(Tournament.Divisions, _numCourts);
+                    if (NumCourtsChanged != null) TriggerEvent(NumCourtsChanged, this, new EventArgs());
+                }
             }
         }
 
