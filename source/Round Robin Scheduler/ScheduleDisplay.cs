@@ -987,7 +987,7 @@ namespace SomeTechie.RoundRobinScheduler
                         //Add needed points to separator
                         if (shouldDrawLineOnBottom || shouldDrawCheckboxSegment)
                         {
-                            if (robinRoundsSeparatorLines.Count < game.RobinRoundNum)
+                            while (robinRoundsSeparatorLines.Count < game.RobinRoundNum)
                                 robinRoundsSeparatorLines.Add(new List<PointF>());
                             List<PointF> robinRoundSeparatorLine = robinRoundsSeparatorLines[game.RobinRoundNum - 1];
                             RectangleF gameRectangle = gameRectanglesByGame[game];
