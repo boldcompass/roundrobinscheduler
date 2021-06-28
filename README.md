@@ -1,9 +1,9 @@
 Round Robin Scheduler
 ====================
-This scheduler was created by [Some Techie](http://www.sometechie.com) as a donation to the [Berean Baptist Church](http://berean-baptist.org) Youth Group to fulfill the unique scheduling requirements for the church's annual 3-on-3 basketball tournament.
+This scheduler was created by [Bold Compass](http://www.boldcompass.com) as a donation to the [Berean Baptist Church](http://berean-baptist.org) Youth Group to fulfill the unique scheduling requirements for the church's annual 3-on-3 basketball tournament.
 
 ## Quick start
-[Download the installer](https://sometechie.github.io/roundrobinscheduler/downloads/setup.exe). The Round Robin Scheduler is installed using Click Once. 
+[Download the installer](https://boldcompass.github.io/roundrobinscheduler/downloads/setup.exe). The Round Robin Scheduler is installed using Click Once. 
 
 ## Features
 * Simultaneous round robin tournaments for up to three divisions
@@ -27,8 +27,8 @@ This scheduler was created by [Some Techie](http://www.sometechie.com) as a dona
 * The number of courts can be configured in the settings dialog
 
 ## Proxy
-To allow devices not on the WiFi network to participate in scorekeeping, a PHP proxy script is available in the [sometechie/roundrobinscheduler-proxy repository](https://github.com/sometechie/roundrobinscheduler-proxy).
+To allow devices not on the WiFi network to participate in scorekeeping, a PHP proxy script is available in the [boldcompass/roundrobinscheduler-proxy repository](https://github.com/boldcompass/roundrobinscheduler-proxy).
 
 ## License
 
-This software is copyright 2011-2014 Some Techie, LLC and released under the MIT license.
+This software is copyright 2011-2014 Bold Compass, LLC and released under the MIT license.
