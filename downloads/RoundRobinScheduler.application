@@ -8,7 +8,7 @@
         <beforeApplicationStartup />
       </update>
     </subscription>
-    <deploymentProvider codebase="https://sometechie.github.io/roundrobinscheduler/downloads/RoundRobinScheduler.application" />
+    <deploymentProvider codebase="https://boldcompass.github.io/roundrobinscheduler/downloads/RoundRobinScheduler.application" />
   </deployment>
   <dependency>
     <dependentAssembly dependencyType="install" codebase="Application Files\RoundRobinScheduler_1_1_1_1\RoundRobinScheduler.exe.manifest" size="18530">
