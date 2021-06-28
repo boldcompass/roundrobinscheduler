@@ -1,0 +1,1 @@
+window.addEvent('domready',function(){new _3o3.Skin($('_3o3_main'), _3o3.getController());});
