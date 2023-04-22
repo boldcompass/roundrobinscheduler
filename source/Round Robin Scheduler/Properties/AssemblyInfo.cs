@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Round Robin Scheduler")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Some Techie")]
+[assembly: AssemblyCompany("Bold Compass")]
 [assembly: AssemblyProduct("Round Robin Scheduler")]
-[assembly: AssemblyCopyright("Copyright ©  2011-2018 Some Techie, LLC. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright ©  2011-2023 Bold Compass LLC. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>\\psf\Home\Documents\roundrobinscheduler-pages\downloads\</PublishUrl>
+    <PublishUrl>C:\Users\jdwire\Documents\roundrobinscheduler-pages\downloads\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,15 +24,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://sometechie.github.io/roundrobinscheduler/downloads/</InstallUrl>
-    <UpdateUrl>https://sometechie.github.io/roundrobinscheduler/downloads/</UpdateUrl>
+    <InstallUrl>https://boldcompass.github.io/roundrobinscheduler/downloads/</InstallUrl>
+    <UpdateUrl>https://boldcompass.github.io/roundrobinscheduler/downloads/</UpdateUrl>
     <SupportUrl>http://roundrobinscheduler.sometechie.com/</SupportUrl>
     <TargetCulture>en-US</TargetCulture>
     <ProductName>Round Robin Scheduler</ProductName>
-    <PublisherName>Some Techie</PublisherName>
+    <PublisherName>Bold Compass</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -63,10 +63,10 @@
     <ApplicationIcon>basketball.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>230841BFB0BB20AFB5C87E59F28681D706F94289</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>00821164E463BB9E83CE3F8D27D40AA2ABC1E55C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CodeSigning.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Bold_Compass_LLC-password-123456.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -83,11 +83,14 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -238,7 +241,10 @@
     <Content Include="mime.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Bold_Compass_LLC-password-123456.pfx" />
+    <None Include="Bold_Compass_LLC.pfx" />
     <None Include="CodeSigning.pfx" />
+    <None Include="CodeSigning2.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
