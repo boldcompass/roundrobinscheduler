@@ -43,12 +43,13 @@
             // scrollingPanel
             // 
             this.scrollingPanel.AutoScroll = true;
+            this.scrollingPanel.BackColor = System.Drawing.SystemColors.Control;
             this.scrollingPanel.Controls.Add(this.scoreEditor);
             this.scrollingPanel.Controls.Add(this.courtRoundsPaintable);
             this.scrollingPanel.Location = new System.Drawing.Point(0, 0);
             this.scrollingPanel.Margin = new System.Windows.Forms.Padding(0);
             this.scrollingPanel.Name = "scrollingPanel";
-            this.scrollingPanel.Size = new System.Drawing.Size(278, 157);
+            this.scrollingPanel.Size = new System.Drawing.Size(510, 290);
             this.scrollingPanel.TabIndex = 0;
             // 
             // scoreEditor
@@ -58,9 +59,9 @@
             this.scoreEditor.EnableChangeTeams = false;
             this.scoreEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreEditor.Location = new System.Drawing.Point(0, 0);
-            this.scoreEditor.Margin = new System.Windows.Forms.Padding(4);
+            this.scoreEditor.Margin = new System.Windows.Forms.Padding(7, 7, 7, 7);
             this.scoreEditor.Name = "scoreEditor";
-            this.scoreEditor.Size = new System.Drawing.Size(175, 72);
+            this.scoreEditor.Size = new System.Drawing.Size(321, 133);
             this.scoreEditor.TabIndex = 1;
             this.scoreEditor.Visible = false;
             this.scoreEditor.scoreEditorClosed += new SomeTechie.RoundRobinScheduler.ScoreEditorClosedEventHandler(this.scoreEditor_scoreEditorClosed);
@@ -74,8 +75,8 @@
             this.courtRoundsPaintable.Location = new System.Drawing.Point(0, 0);
             this.courtRoundsPaintable.Margin = new System.Windows.Forms.Padding(0);
             this.courtRoundsPaintable.Name = "courtRoundsPaintable";
-            this.courtRoundsPaintable.Padding = new System.Windows.Forms.Padding(0, 0, 0, 16);
-            this.courtRoundsPaintable.Size = new System.Drawing.Size(379, 100);
+            this.courtRoundsPaintable.Padding = new System.Windows.Forms.Padding(0, 0, 0, 30);
+            this.courtRoundsPaintable.Size = new System.Drawing.Size(695, 185);
             this.courtRoundsPaintable.TabIndex = 0;
             this.courtRoundsPaintable.Paint += new System.Windows.Forms.PaintEventHandler(this.courtRoundsPanel_Paint);
             this.courtRoundsPaintable.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.courtRoundsPaintable_KeyPress);
@@ -90,10 +91,10 @@
             this.btnMoreRounds.AutoSize = true;
             this.btnMoreRounds.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnMoreRounds.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnMoreRounds.Location = new System.Drawing.Point(228, 72);
-            this.btnMoreRounds.Margin = new System.Windows.Forms.Padding(2, 8, 2, 0);
+            this.btnMoreRounds.Location = new System.Drawing.Point(418, 133);
+            this.btnMoreRounds.Margin = new System.Windows.Forms.Padding(4, 15, 4, 0);
             this.btnMoreRounds.Name = "btnMoreRounds";
-            this.btnMoreRounds.Size = new System.Drawing.Size(103, 23);
+            this.btnMoreRounds.Size = new System.Drawing.Size(180, 35);
             this.btnMoreRounds.TabIndex = 1;
             this.btnMoreRounds.TabStop = false;
             this.btnMoreRounds.Text = "Add More Rounds";
@@ -102,26 +103,27 @@
             // 
             // contextMenu
             // 
+            this.contextMenu.ImageScalingSize = new System.Drawing.Size(28, 28);
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ctxtToggleGameVisibility});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(100, 26);
+            this.contextMenu.Size = new System.Drawing.Size(130, 40);
             // 
             // ctxtToggleGameVisibility
             // 
             this.ctxtToggleGameVisibility.Name = "ctxtToggleGameVisibility";
-            this.ctxtToggleGameVisibility.Size = new System.Drawing.Size(99, 22);
+            this.ctxtToggleGameVisibility.Size = new System.Drawing.Size(129, 36);
             this.ctxtToggleGameVisibility.Text = "Hide";
             this.ctxtToggleGameVisibility.Click += new System.EventHandler(this.ctxtToggleGameVisibility_Click);
             // 
             // ScheduleDisplay
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scrollingPanel);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ScheduleDisplay";
-            this.Size = new System.Drawing.Size(342, 191);
+            this.Size = new System.Drawing.Size(627, 353);
             this.Load += new System.EventHandler(this.ScheduleDisplay_Load);
             this.Resize += new System.EventHandler(this.ScheduleDisplay_Resize);
             this.scrollingPanel.ResumeLayout(false);

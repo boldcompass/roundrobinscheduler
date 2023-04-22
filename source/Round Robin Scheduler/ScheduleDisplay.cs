@@ -13,9 +13,9 @@ namespace SomeTechie.RoundRobinScheduler
     {
         protected int defaultNumCourts = 5;
         protected int headerHeight = 20;
-        protected const int defaultRoundColumnWidth = 55;
+        protected const int defaultRoundColumnWidth = 95;
         protected int roundColumnWidth = 50;
-        protected int courtRoundHeight = 50;
+        protected int courtRoundHeight = 60;
         protected int scoreKeeperNameHeight = 15;
         protected int unconfirmedTextHeight = 15;
         protected int courtColumnWidth;
